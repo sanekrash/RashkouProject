@@ -1,0 +1,6 @@
+C:\Users\Sanekrash\RiderProjects\RashkouProject\RashkouProject\bin\Debug\RashkouProject.exe
+C:\Users\Sanekrash\RiderProjects\RashkouProject\RashkouProject\bin\Debug\RashkouProject.pdb
+C:\Users\Sanekrash\RiderProjects\RashkouProject\RashkouProject\obj\Debug\RashkouProject.csprojAssemblyReference.cache
+C:\Users\Sanekrash\RiderProjects\RashkouProject\RashkouProject\obj\Debug\RashkouProject.csproj.CoreCompileInputs.cache
+C:\Users\Sanekrash\RiderProjects\RashkouProject\RashkouProject\obj\Debug\RashkouProject.exe
+C:\Users\Sanekrash\RiderProjects\RashkouProject\RashkouProject\obj\Debug\RashkouProject.pdb

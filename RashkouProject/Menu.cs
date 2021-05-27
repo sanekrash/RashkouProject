@@ -20,15 +20,15 @@ namespace RashkouProject
 
         public void Input(ConsoleKeyInfo key)
         {
-            switch (key.KeyChar)
+            switch (key.Key)
             {
-                case 'n':
+                case ConsoleKey.N:
                     _.State = new World();
                     break;
-                case 'h':
+                case ConsoleKey.H:
                     _.State = new MenuHelp();
                     break;
-                case 'q':
+                case ConsoleKey.Q:
                     Environment.Exit(0);
                     break;
             }

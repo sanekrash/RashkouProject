@@ -10,7 +10,7 @@ namespace RashkouProject.Core
         {
             public abstract void Input(ConsoleKeyInfo key);
             public abstract void Output();
-            public Matrix _matrix;
+            public Matrix GameMatrix;
         }
 
         public static IState State;

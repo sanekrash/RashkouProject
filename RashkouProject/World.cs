@@ -13,37 +13,68 @@ namespace RashkouProject
 {
     public class World : _.IState
     {
-        int playerX = 20, playerY = 20;
+        public Location CurrentLocation;
+
+        //       int playerX = 20, playerY = 20;
         public World()
         {
+            Console.Title = "Mailine Vestochka";
+            CurrentLocation = new Location(79, 24);
 
+            for (int x = 0; x < 79; x++)
+            for (int y = 0; y < 24; y++)
+            {
+                CurrentLocation.Tiles[x, y].AddEntity(new Floor());
+            }
+
+            for (int x = 0; x < 79; x++)
+            {
+                CurrentLocation.Tiles[x, 0].AddEntity(new Wall());
+                CurrentLocation.Tiles[x, 23].AddEntity(new Wall());
+            }
+
+            for (int y = 1; y < 23; y++)
+            {
+                CurrentLocation.Tiles[0, y].AddEntity(new Wall());
+                CurrentLocation.Tiles[78, y].AddEntity(new Wall());
+            }
         }
-        
+
+        static void GenerateLocation()
+        {
+        }
 
         public override void Input(ConsoleKeyInfo key)
         {
             switch (key.Key)
             {
                 case ConsoleKey.UpArrow:
-                    playerY--;
+                    //                   playerY--;
                     break;
                 case ConsoleKey.LeftArrow:
-                    playerX--;
+                    //                   playerX--;
                     break;
                 case ConsoleKey.RightArrow:
-                    playerX++;
+//                    playerX++;
                     break;
                 case ConsoleKey.DownArrow:
-                    playerY++;
+                    //                playerY++;
                     break;
             }
         }
 
         public override void Output()
         {
-            _matrix = new Matrix(79, 25, new Char(' ', Black, Black));
-            _matrix.Print(new Char('@',White,Black),playerX,playerY); 
-            _matrix.MatrixDrawChar();
+                     GameMatrix = new Matrix(79, 25, new Char(' ', Black, Black));
+                     for (int x = 0; x < CurrentLocation.Tiles.GetLength(0); x++)
+                     {
+                         for (int y = 0; y < CurrentLocation.Tiles.GetLength(1); y++)
+                         {
+                             GameMatrix[x,y] = CurrentLocation.Tiles[x, y].PrintTile();
+                         }
+                     }
+            //          _matrix.Print(new Char('@',White,Black),playerX,playerY); 
+            //         _matrix.MatrixDrawChar();
         }
     }
 }

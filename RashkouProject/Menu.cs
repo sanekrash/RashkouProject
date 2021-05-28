@@ -30,12 +30,12 @@ namespace RashkouProject
 
         public override void Output()
         {
-            _matrix = new Matrix(79, 25, new Char(' ', Black, Black));
-            _matrix.PrintLine("n - новая игра", 1, 1, White, Black);
-            _matrix.PrintLine("h - справка", 1, 3, White, Black);
-            _matrix.PrintLine("q - выйти", 1, 5, White, Black);
-            _matrix.PrintLine("Федя лох, господа, мимо ваш Sanekrash", 1, 23, White, Black);
-            _matrix.MatrixDrawChar();
+            GameMatrix = new Matrix(79, 25, new Char(' ', Black, Black));
+            GameMatrix.PrintLine("n - новая игра", 1, 1, White, Black);
+            GameMatrix.PrintLine("h - справка", 1, 3, White, Black);
+            GameMatrix.PrintLine("q - выйти", 1, 5, White, Black);
+            GameMatrix.PrintLine("Федя лох, господа, мимо ваш Sanekrash", 1, 23, White, Black);
+            GameMatrix.MatrixDrawChar();
         }
         
     }

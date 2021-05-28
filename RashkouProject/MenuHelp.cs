@@ -25,9 +25,9 @@ namespace RashkouProject
 
         public override void Output()
         {
-            _matrix = new Matrix(79, 25, new Char(' ', Black, Black));
-            _matrix.PrintLine("Тут нихуя нет, нажми b, чтобы вернуться в меню", 1, 1, White, Black);
-            _matrix.MatrixDrawChar();
+            GameMatrix = new Matrix(79, 25, new Char(' ', Black, Black));
+            GameMatrix.PrintLine("Тут нихуя нет, нажми b, чтобы вернуться в меню", 1, 1, White, Black);
+            GameMatrix.MatrixDrawChar();
         }
         
 

@@ -14,12 +14,12 @@ namespace RashkouProject
             _.State = new Menu();
             _.State.Output();
             Console.BackgroundColor = Black;
-            Console.Title = "Mailine Vestochka";
             while (true) 
             {
                 var key = Console.ReadKey(true);
                 _.State.Input(key);
                 _.State.Output();
+                
             }
         }
     }

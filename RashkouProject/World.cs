@@ -14,21 +14,13 @@ namespace RashkouProject
     public class World : _.IState
     {
         int playerX = 20, playerY = 20;
-        private Matrix _matrix = new Matrix(79, 25, new Char(' ', White, Black));
         public World()
         {
-            Console.Clear();
-            WorldDraw();
-        }
 
-        public void WorldDraw()
-        {
-            _matrix.Print(new Matrix(79, 25, new Char(' ', White, Black)), 0, 0);
-            _matrix.Print(new Char('@',White,Black),playerX,playerY);
-            DrawMatrix.Draw(_matrix.Chars);
         }
+        
 
-        public void Input(ConsoleKeyInfo key)
+        public override void Input(ConsoleKeyInfo key)
         {
             switch (key.Key)
             {
@@ -45,11 +37,13 @@ namespace RashkouProject
                     playerY++;
                     break;
             }
-            WorldDraw();
         }
 
-        public void Output()
+        public override void Output()
         {
+            _matrix = new Matrix(79, 25, new Char(' ', Black, Black));
+            _matrix.Print(new Char('@',White,Black),playerX,playerY); 
+            _matrix.MatrixDrawChar();
         }
     }
 }

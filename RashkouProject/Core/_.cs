@@ -1,14 +1,16 @@
 using System;
 using System.Runtime.CompilerServices;
+using RashkouProject.Draw;
 
 namespace RashkouProject.Core
 {
     public static class _
     {
-        public interface IState 
+        public abstract class IState
         {
-            void Input(ConsoleKeyInfo key);
-            void Output();
+            public abstract void Input(ConsoleKeyInfo key);
+            public abstract void Output();
+            public Matrix _matrix;
         }
 
         public static IState State;

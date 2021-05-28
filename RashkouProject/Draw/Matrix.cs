@@ -70,5 +70,22 @@ namespace RashkouProject.Draw
             get { return Chars[x, y]; }
             set { Chars[x, y] = value; }
         }
+        
+        public void MatrixDrawChar()
+        {
+            int height = Chars.GetLength(1);
+            int width = Chars.GetLength(0);
+            Console.Clear();
+            for (int y = 0; y < height; y++)
+            {
+                Console.WriteLine();
+                for (int x = 0; x < width; x++)
+                {
+                    Console.BackgroundColor = Chars[x, y].BackColor;
+                    Console.ForegroundColor = Chars[x, y].ForColor;
+                    Console.Write(Chars[x, y].Glyph);
+                }
+            }
+        }
     }
 }

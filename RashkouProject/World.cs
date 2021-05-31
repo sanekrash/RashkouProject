@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Specialized;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.Intrinsics.X86;
 using RashkouProject.Core;
 using RashkouProject.Draw;
 using RashkouProject.Game;
@@ -17,13 +14,13 @@ namespace RashkouProject
     {
         public Location CurrentLocation;
         public CharEntity Player;
-        
+
         //       int playerX = 20, playerY = 20;
         public World()
         {
-            Player = new Human("Mailine Vestocka", 3,3);
+            Player = new Human("Mailine Vestocka", 3, 3);
             Player.Glyph = '@';
-            Console.Title = "Character: "+Player.Name+" HP: "+Player.HP+"/"+Player.MaxHP;
+            Console.Title = "Character: " + Player.Name + " HP: " + Player.HP + "/" + Player.MaxHP;
             CurrentLocation = new Location(79, 24);
 
             for (int x = 0; x < 79; x++)
@@ -43,10 +40,9 @@ namespace RashkouProject
                 CurrentLocation.Tiles[0, y].AddEntity(new Wall());
                 CurrentLocation.Tiles[78, y].AddEntity(new Wall());
             }
-            CurrentLocation.Spawn(Player, Player.X,Player.Y);
 
+            CurrentLocation.Spawn(Player, Player.X, Player.Y);
         }
-
 
 
         public override void Input(ConsoleKeyInfo key)
@@ -54,33 +50,43 @@ namespace RashkouProject
             switch (key.Key)
             {
                 case ConsoleKey.UpArrow:
-                {
-                    CurrentLocation.Tiles[Player.X, Player.Y].DeleteEntity(Player);
-                    Player.MoveTo(Player.X, Player.Y-1);
-                    CurrentLocation.Tiles[Player.X, Player.Y].AddEntity(Player);
+                    if (CurrentLocation.Tiles[Player.X, Player.Y - 1].IsPassing())
+                    {
+                        CurrentLocation.Tiles[Player.X, Player.Y].DeleteEntity(Player);
+                        Player.MoveTo(Player.X, Player.Y - 1);
+                        CurrentLocation.Tiles[Player.X, Player.Y].AddEntity(Player);
+                    }
+
                     break;
-                }
                 case ConsoleKey.LeftArrow:
-                {
-                    CurrentLocation.Tiles[Player.X, Player.Y].DeleteEntity(Player);
-                    Player.MoveTo(Player.X-1, Player.Y);
-                    CurrentLocation.Tiles[Player.X, Player.Y].AddEntity(Player);
+                    if (CurrentLocation.Tiles[Player.X - 1, Player.Y].IsPassing())
+                    {
+                        CurrentLocation.Tiles[Player.X, Player.Y].DeleteEntity(Player);
+                        Player.MoveTo(Player.X - 1, Player.Y);
+                        CurrentLocation.Tiles[Player.X, Player.Y].AddEntity(Player);
+                    }
+
                     break;
-                }
+
                 case ConsoleKey.RightArrow:
-                {
-                    CurrentLocation.Tiles[Player.X, Player.Y].DeleteEntity(Player);
-                    Player.MoveTo(Player.X+1, Player.Y);
-                    CurrentLocation.Tiles[Player.X, Player.Y].AddEntity(Player);
+                    if (CurrentLocation.Tiles[Player.X + 1, Player.Y].IsPassing())
+                    {
+                        CurrentLocation.Tiles[Player.X, Player.Y].DeleteEntity(Player);
+                        Player.MoveTo(Player.X + 1, Player.Y);
+                        CurrentLocation.Tiles[Player.X, Player.Y].AddEntity(Player);
+                    }
+
                     break;
-                }
+
                 case ConsoleKey.DownArrow:
-                {
-                    CurrentLocation.Tiles[Player.X, Player.Y].DeleteEntity(Player);
-                    Player.MoveTo(Player.X, Player.Y+1);
-                    CurrentLocation.Tiles[Player.X, Player.Y].AddEntity(Player);
+                    if (CurrentLocation.Tiles[Player.X, Player.Y + 1].IsPassing() == true)
+                    {
+                        CurrentLocation.Tiles[Player.X, Player.Y].DeleteEntity(Player);
+                        Player.MoveTo(Player.X, Player.Y + 1);
+                        CurrentLocation.Tiles[Player.X, Player.Y].AddEntity(Player);
+                    }
+
                     break;
-                }
             }
         }
 
@@ -95,7 +101,6 @@ namespace RashkouProject
                 }
             }
 
-            //          _matrix.Print(new Char('@',White,Black),playerX,playerY); 
             GameMatrix.MatrixDrawChar();
         }
     }

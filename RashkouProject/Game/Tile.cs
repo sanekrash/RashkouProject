@@ -6,7 +6,7 @@ using Char = RashkouProject.Draw.Char;
 
 namespace RashkouProject.Game
 {
-    public class ContainsEntity
+    public class Tile
     {
         public List<MapEntity> Mapentities = new List<MapEntity>();
         public List<CharEntity> CharEntities = new List<CharEntity>();
@@ -25,6 +25,18 @@ namespace RashkouProject.Game
             CharEntities.Remove(entity);
         }
 
+        public bool IsPassing()
+        {
+            foreach (var mapEntity in Mapentities)
+            {
+                if (mapEntity.Passability == false)
+                {
+                    return mapEntity.Passability;
+                }
+            }
+
+            return true;
+        }
 
         public Char PrintTile()
         {

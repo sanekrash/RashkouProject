@@ -6,6 +6,7 @@ namespace RashkouProject.Game.Entities
         {
             Priority = 0;
             Glyph = '.';
+            Passability = true;
         }
     }
 }

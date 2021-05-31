@@ -5,14 +5,14 @@ namespace RashkouProject.Game
 {
     public class Location
     {
-        public ContainsEntity[,] Tiles;
+        public Tile[,] Tiles;
         public Location(int w, int h)
         {
-            Tiles = new ContainsEntity[w, h];
+            Tiles = new Tile[w, h];
             for (int x = 0; x < w; x++)
             for (int y = 0; y < h; y++)
             {
-                Tiles[x, y] = new ContainsEntity();
+                Tiles[x, y] = new Tile();
             }
             
         }

@@ -4,7 +4,8 @@ namespace RashkouProject.Game.Entities
     {
         public Floor()
         {
-            
+            Priority = 0;
+            Glyph = '.';
         }
     }
 }

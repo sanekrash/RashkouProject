@@ -1,6 +1,6 @@
 namespace RashkouProject.Game.Entities
 {
-    public class MapEntity : Entity
+    public abstract class MapEntity : Entity
     {
     }
 }

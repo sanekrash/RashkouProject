@@ -4,7 +4,8 @@ namespace RashkouProject.Game.Entities
     {
         public Wall()
         {
-            
+            Priority = 1;
+            Glyph = '#';
         }
     }
 }

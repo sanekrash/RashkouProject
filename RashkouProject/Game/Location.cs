@@ -1,4 +1,5 @@
 using System.Net.Sockets;
+using RashkouProject.Game.Entities;
 
 namespace RashkouProject.Game
 {
@@ -13,8 +14,13 @@ namespace RashkouProject.Game
             {
                 Tiles[x, y] = new ContainsEntity();
             }
+            
         }
-
+        public void Spawn(CharEntity e, int x, int y)
+        {
+            Tiles[x,y].AddEntity(e);
+            e.OnSpawn();
+        }
 
     }
 }

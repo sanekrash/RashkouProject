@@ -6,6 +6,7 @@ namespace RashkouProject.Game
         public char Glyph;
         public int X, Y;
         public bool Passability;
+        public string Name = "test";
 
         public virtual void OnSpawn()
         {

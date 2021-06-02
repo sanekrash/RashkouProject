@@ -4,6 +4,7 @@ namespace RashkouProject.Game.Entities
     {
         public Floor()
         {
+            Name = "Пол";
             Priority = 0;
             Glyph = '.';
             Passability = true;

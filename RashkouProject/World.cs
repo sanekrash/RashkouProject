@@ -18,16 +18,14 @@ namespace RashkouProject
         //       int playerX = 20, playerY = 20;
         public World()
         {
-            Player = new Human("Mailine Vestochka ", 2, 2);
+            Player = new Human("Mailine Vestochka", 2, 2);
             Player.Glyph = '@';
             Console.Title = "Character: " + Player.Name + " HP: " + Player.HP + "/" + Player.MaxHP;
             CurrentLocation = new Location(50, 50);
 
             for (int x = 0; x < 50; x++)
             for (int y = 0; y < 50; y++)
-            {
                 CurrentLocation.Tiles[x, y].AddEntity(new Floor());
-            }
 
             for (int x = 0; x < 50; x++)
             {
@@ -42,7 +40,8 @@ namespace RashkouProject
             }
 
             CurrentLocation.Spawn(Player);
-            CurrentLocation.Spawn(new Dummy("loh", 10,10));
+            CurrentLocation.Spawn(new Dummy("loh", 10, 10));
+            CurrentLocation.Tiles[25,25].AddEntity(new TestItem());
         }
 
 
@@ -51,18 +50,18 @@ namespace RashkouProject
             switch (key.Key)
             {
                 case ConsoleKey.UpArrow:
-                    Player.MoveUp();
+                    Player.Move(0, -1);
                     break;
                 case ConsoleKey.LeftArrow:
-                    Player.MoveLeft();
+                    Player.Move(-1, 0);
                     break;
 
                 case ConsoleKey.RightArrow:
-                    Player.MoveRight();
+                    Player.Move(1 , 0);
                     break;
 
                 case ConsoleKey.DownArrow:
-                    Player.MoveDown();
+                    Player.Move(0, 1);
                     break;
             }
         }
@@ -70,22 +69,20 @@ namespace RashkouProject
         public override void Output()
         {
             GameMatrix = new Matrix(79, 40, new Char(' ', Black, Black));
-            for (int x = Player.X - 39; x < Player.X + 39; x++)
+            GameMatrix.Print(CurrentLocation.Camera(Player.X,Player.Y),0,0);
+    /*        for (int x = Player.X - 39; x < Player.X + 39; x++)
             {
                 for (int y = Player.Y - 12; y < Player.Y + 12; y++)
                 {
-                    if ((x >= 0 && x < CurrentLocation.Tiles.GetLength(0)) &&
-                        (y >= 0 && y < CurrentLocation.Tiles.GetLength(1)))
+                    if (x >= 0 && x < CurrentLocation.Tiles.GetLength(0) && y >= 0 && y < CurrentLocation.Tiles.GetLength(1))
                     {
                         GameMatrix[x + 39 - Player.X, y + 12 - Player.Y] =
                             CurrentLocation.Tiles[x, y].PrintTile();
                     }
                     else
-                    {
                         GameMatrix[x + 39 - Player.X, y + 12 - Player.Y] = new Char('~', White, Black);
-                    }
                 }
-            }
+            } */
 
             for (int x = 0; x < 79; x++)
             {

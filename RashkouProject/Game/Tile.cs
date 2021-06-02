@@ -10,6 +10,7 @@ namespace RashkouProject.Game
     {
         public List<MapEntity> Mapentities = new List<MapEntity>();
         public List<CharEntity> CharEntities = new List<CharEntity>();
+        public List<ItemEntity> ItemEntities = new List<ItemEntity>();
 
 
         public void AddEntity(MapEntity entity)
@@ -20,6 +21,10 @@ namespace RashkouProject.Game
         {
             CharEntities.Add(entity);
         }
+        public void AddEntity(ItemEntity entity)
+        {
+            ItemEntities.Add(entity);
+        }
         public void DeleteEntity(CharEntity entity)
         {
             CharEntities.Remove(entity);
@@ -28,22 +33,11 @@ namespace RashkouProject.Game
         public bool IsPassing()
         {
             foreach (var mapEntity in Mapentities)
-            {
                 if (mapEntity.Passability == false)
-                {
                     return mapEntity.Passability;
-                }
-                
-            }
             foreach (var charEntity in CharEntities)
-            {
                 if (charEntity.Passability == false)
-                {
                     return charEntity.Passability;
-                }
-                
-            }
-
 
             return true;
         }
@@ -68,6 +62,14 @@ namespace RashkouProject.Game
                     glyph = mapEntity.Glyph;
                 }
             }
+            foreach (var itemEntity in ItemEntities)
+            {
+                if (itemEntity.Priority > priority)
+                {
+                    priority = itemEntity.Priority;
+                    glyph = itemEntity.Glyph;
+                }
+            }
             foreach (var charEnrtity in CharEntities)
             {
                 if (charEnrtity.Priority > priority)
@@ -76,6 +78,7 @@ namespace RashkouProject.Game
                     glyph = charEnrtity.Glyph;
                 }
             }
+            
 
             return (new Char(glyph, White, Black));
         }

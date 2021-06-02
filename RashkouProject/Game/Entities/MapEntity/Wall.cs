@@ -4,6 +4,7 @@ namespace RashkouProject.Game.Entities
     {
         public Wall()
         {
+            Name = "Стена";
             Priority = 1;
             Glyph = '#';
             Passability = false;

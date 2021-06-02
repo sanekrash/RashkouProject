@@ -50,37 +50,40 @@ namespace RashkouProject.Game
             }
             return charEntities;
         }
+
         public Char PrintTile()
         {
+            return new(PriorityEntity().Glyph, White, Black);
+        }
+        
+        public Entity PriorityEntity()
+        {
+            var entities = new List<Entity>();
+            Entity returnentity = null;
             int priority = -1;
-            char glyph = ' ';
             foreach (var mapEntity in Mapentities)
             {
-                if (mapEntity.Priority > priority)
-                {
-                    priority = mapEntity.Priority;
-                    glyph = mapEntity.Glyph;
-                }
+                entities.Add(mapEntity);
             }
             foreach (var itemEntity in ItemEntities)
             {
-                if (itemEntity.Priority > priority)
-                {
-                    priority = itemEntity.Priority;
-                    glyph = itemEntity.Glyph;
-                }
+                entities.Add(itemEntity);
             }
-            foreach (var charEnrtity in CharEntities)
+            foreach (var charentity in CharEntities)
             {
-                if (charEnrtity.Priority > priority)
+                entities.Add(charentity);
+            }
+
+            foreach (var entity in entities)
+            {
+                if (entity.Priority > priority)
                 {
-                    priority = charEnrtity.Priority;
-                    glyph = charEnrtity.Glyph;
+                    priority = entity.Priority;
+                    returnentity = entity;
                 }
             }
-            
-
-            return (new Char(glyph, White, Black));
+            return returnentity;
         }
+
     }
 }

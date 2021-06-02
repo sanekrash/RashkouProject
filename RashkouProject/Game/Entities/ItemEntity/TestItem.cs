@@ -5,7 +5,7 @@ namespace RashkouProject.Game.Entities
         public TestItem()
         {
             Priority = 100;
-            Name = "Ифчехуана";
+            Name = "Тестовый предмет";
             Glyph = '%';
         }
     }

@@ -33,11 +33,29 @@ namespace RashkouProject.Game
                 {
                     return mapEntity.Passability;
                 }
+                
             }
+            foreach (var charEntity in CharEntities)
+            {
+                if (charEntity.Passability == false)
+                {
+                    return charEntity.Passability;
+                }
+                
+            }
+
 
             return true;
         }
-
+        public List<CharEntity> CharList()
+        {
+            List<CharEntity> charEntities = new List<CharEntity>(); 
+            foreach (var charEntity in CharEntities)
+            {
+                charEntities.Add(charEntity);
+            }
+            return charEntities;
+        }
         public Char PrintTile()
         {
             int priority = -1;

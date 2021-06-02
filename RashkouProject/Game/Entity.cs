@@ -5,7 +5,12 @@ namespace RashkouProject.Game
         public int Priority;
         public char Glyph;
         public int X, Y;
+        public bool Passability;
+
         public virtual void OnSpawn()
+        {
+        }
+        public virtual void OnDespawn()
         {
         }
     }

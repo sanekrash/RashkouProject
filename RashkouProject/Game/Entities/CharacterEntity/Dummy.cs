@@ -2,23 +2,22 @@ using System;
 
 namespace RashkouProject.Game.Entities.CharacterEntity
 {
-    public class Human : CharEntity
+    public class Dummy : CharEntity
     {
-        public Human(String name, int x, int y)
+        public Dummy(String name, int x, int y)
         {
             X = x;
             Y = y;
             Priority = 10000;
-            HP = 1;
-            MaxHP = 1;
+            HP = 100;
+            MaxHP = 100;
             MP = 1;
             MaxMP = 1;
-            Glyph = 'd';
+            Glyph = 'D';
             Name = name;
             Level = 1;
             Exp = 0;
             Passability = false;
-            Damage = 25;
         }
     }
 }

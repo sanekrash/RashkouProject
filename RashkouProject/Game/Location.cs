@@ -16,11 +16,15 @@ namespace RashkouProject.Game
             }
             
         }
-        public void Spawn(CharEntity e, int x, int y)
+        public void Spawn(CharEntity e)
         {
-            Tiles[x,y].AddEntity(e);
+            Tiles[e.X,e.Y].AddEntity(e);
             e.OnSpawn();
         }
-
+        public void Despawn(CharEntity e)
+        {
+            Tiles[e.X,e.Y].DeleteEntity(e);
+            e.OnDespawn();
+        }
     }
 }

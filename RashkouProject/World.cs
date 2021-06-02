@@ -12,7 +12,7 @@ namespace RashkouProject
 {
     public class World : _.IState
     {
-        public Location CurrentLocation;
+        public static Location CurrentLocation;
         public CharEntity Player;
 
         //       int playerX = 20, playerY = 20;
@@ -41,7 +41,8 @@ namespace RashkouProject
                 CurrentLocation.Tiles[49, y].AddEntity(new Wall());
             }
 
-            CurrentLocation.Spawn(Player, Player.X, Player.Y);
+            CurrentLocation.Spawn(Player);
+            CurrentLocation.Spawn(new Dummy("loh", 10,10));
         }
 
 
@@ -50,42 +51,18 @@ namespace RashkouProject
             switch (key.Key)
             {
                 case ConsoleKey.UpArrow:
-                    if (CurrentLocation.Tiles[Player.X, Player.Y - 1].IsPassing())
-                    {
-                        CurrentLocation.Tiles[Player.X, Player.Y].DeleteEntity(Player);
-                        Player.MoveTo(Player.X, Player.Y - 1);
-                        CurrentLocation.Tiles[Player.X, Player.Y].AddEntity(Player);
-                    }
-
+                    Player.MoveUp();
                     break;
                 case ConsoleKey.LeftArrow:
-                    if (CurrentLocation.Tiles[Player.X - 1, Player.Y].IsPassing())
-                    {
-                        CurrentLocation.Tiles[Player.X, Player.Y].DeleteEntity(Player);
-                        Player.MoveTo(Player.X - 1, Player.Y);
-                        CurrentLocation.Tiles[Player.X, Player.Y].AddEntity(Player);
-                    }
-
+                    Player.MoveLeft();
                     break;
 
                 case ConsoleKey.RightArrow:
-                    if (CurrentLocation.Tiles[Player.X + 1, Player.Y].IsPassing())
-                    {
-                        CurrentLocation.Tiles[Player.X, Player.Y].DeleteEntity(Player);
-                        Player.MoveTo(Player.X + 1, Player.Y);
-                        CurrentLocation.Tiles[Player.X, Player.Y].AddEntity(Player);
-                    }
-
+                    Player.MoveRight();
                     break;
 
                 case ConsoleKey.DownArrow:
-                    if (CurrentLocation.Tiles[Player.X, Player.Y + 1].IsPassing() == true)
-                    {
-                        CurrentLocation.Tiles[Player.X, Player.Y].DeleteEntity(Player);
-                        Player.MoveTo(Player.X, Player.Y + 1);
-                        CurrentLocation.Tiles[Player.X, Player.Y].AddEntity(Player);
-                    }
-
+                    Player.MoveDown();
                     break;
             }
         }
@@ -109,7 +86,7 @@ namespace RashkouProject
                     }
                 }
             }
-            
+
             for (int x = 0; x < 79; x++)
             {
                 for (int y = 24; y < 40; y++)

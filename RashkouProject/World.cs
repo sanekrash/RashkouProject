@@ -14,6 +14,7 @@ namespace RashkouProject
     {
         public static Location CurrentLocation;
         public static CharEntity Player;
+        public static TimeController TimeController = new TimeController();
 
         public abstract class IState
         {
@@ -46,13 +47,11 @@ namespace RashkouProject
                 CurrentLocation.Tiles[0, y].AddEntity(new Wall());
                 CurrentLocation.Tiles[49, y].AddEntity(new Wall());
             }
-
             CurrentLocation.Spawn(Player);
             CurrentLocation.Spawn(new Dummy("loh", 10, 10));
             CurrentLocation.Tiles[25, 25].AddEntity(new TestItem());
             State = new GameMode();
             State.Output();
-
         }
 
 

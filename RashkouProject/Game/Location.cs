@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Net.Sockets;
 using RashkouProject.Draw;
 using RashkouProject.Game.Entities;
@@ -9,6 +10,7 @@ namespace RashkouProject.Game
     public class Location
     {
         public Tile[,] Tiles;
+        public List<CharEntity> CharEntities = new List<CharEntity>();
 
         public Location(int w, int h)
         {
@@ -22,12 +24,14 @@ namespace RashkouProject.Game
 
         public void Spawn(CharEntity e)
         {
+            CharEntities.Add(e);
             Tiles[e.X, e.Y].AddEntity(e);
             e.OnSpawn();
         }
 
         public void Despawn(CharEntity e)
         {
+            CharEntities.Remove(e);
             Tiles[e.X, e.Y].DeleteEntity(e);
             e.OnDespawn();
         }

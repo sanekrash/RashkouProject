@@ -9,8 +9,8 @@ namespace RashkouProject.Game.Entities.CharacterEntity
             X = x;
             Y = y;
             Priority = 10000;
-            HP = 1;
-            MaxHP = 1;
+            HP = 100;
+            MaxHP = 100;
             MP = 1;
             MaxMP = 1;
             Glyph = 'd';

@@ -1,5 +1,6 @@
 using System;
 using RashkouProject.Draw;
+using RashkouProject.Game;
 using static System.ConsoleColor;
 using Char = RashkouProject.Draw.Char;
 
@@ -13,20 +14,25 @@ namespace RashkouProject
             {
                 case ConsoleKey.UpArrow:
                     World.Player.Move(0, -1);
+                    World.TimeController.Execute();
                     break;
                 case ConsoleKey.LeftArrow:
                     World.Player.Move(-1, 0);
+                    World.TimeController.Execute();
                     break;
-
                 case ConsoleKey.RightArrow:
                     World.Player.Move(1, 0);
+                    World.TimeController.Execute();
                     break;
-
                 case ConsoleKey.DownArrow:
                     World.Player.Move(0, 1);
+                    World.TimeController.Execute();
                     break;
                 case ConsoleKey.L:
                     World.State = new LookMode(World.Player.X,World.Player.Y);
+                    break;
+                case ConsoleKey.C:
+                    World.State = new CommandMode();
                     break;
             }
         }
@@ -52,7 +58,7 @@ namespace RashkouProject
 
             GameMatrix.PrintLine(World.Player.Name, 40 - World.Player.Name.Length / 2, 25, Green, Black);
             GameMatrix.PrintLine("HP: " + World.Player.HP + "/" + World.Player.MaxHP, 2, 28, White, Black);
-            GameMatrix.PrintLine("HP: " + World.Player.MP + "/" + World.Player.MaxMP, 40, 28, White, Black);
+            GameMatrix.PrintLine("MP: " + World.Player.MP + "/" + World.Player.MaxMP, 40, 28, White, Black);
             GameMatrix.PrintLine("Level: " + World.Player.Level, 2, 30, White, Black);
             GameMatrix.PrintLine("EXP: " + World.Player.Exp, 40, 30, White, Black);
             GameMatrix.MatrixDrawChar();

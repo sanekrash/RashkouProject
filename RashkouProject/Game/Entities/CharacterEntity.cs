@@ -27,6 +27,10 @@ namespace RashkouProject.Game.Entities
             }
             World.TimeController.GetRecovery(100,this);
         }
+        public void Wait()
+        {
+            World.TimeController.GetRecovery(100,this);
+        }
 
         public void GetHit(Attack attack)
         {

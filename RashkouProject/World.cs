@@ -49,6 +49,9 @@ namespace RashkouProject
             }
             CurrentLocation.Spawn(Player);
             CurrentLocation.Spawn(new Dummy("loh", 10, 10));
+
+
+
             CurrentLocation.Tiles[25, 25].AddEntity(new TestItem());
             State = new GameMode();
             State.Output();

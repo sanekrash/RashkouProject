@@ -6,24 +6,24 @@ namespace RashkouProject.Mathematics
 {
     public class BinaryHeap
     {
-        private List<Recovery> list = new List<Recovery>();
+        public List<Recovery> List = new List<Recovery>();
 
         public int HeapSize()
         {
-            return list.Count;
+            return List.Count;
         }
 
         public void Add(Recovery recovery)
         {
-            list.Add(recovery);
+            List.Add(recovery);
             int i = HeapSize() - 1;
             int parent = (i - 1) / 2;
 
-            while (i > 0 && list[parent].Time > list[i].Time)
+            while (i > 0 && List[parent].Time > List[i].Time)
             {
-                Recovery temp = list[i];
-                list[i] = list[parent];
-                list[parent] = temp;
+                Recovery temp = List[i];
+                List[i] = List[parent];
+                List[parent] = temp;
 
                 i = parent;
                 parent = (i - 1) / 2;
@@ -42,12 +42,12 @@ namespace RashkouProject.Mathematics
                 rightChild = 2 * i + 2;
                 smallestChild = i;
 
-                if (leftChild < HeapSize() && list[leftChild].Time < list[smallestChild].Time)
+                if (leftChild < HeapSize() && List[leftChild].Time < List[smallestChild].Time)
                 {
                     smallestChild = leftChild;
                 }
 
-                if (rightChild < HeapSize() && list[rightChild].Time < list[smallestChild].Time)
+                if (rightChild < HeapSize() && List[rightChild].Time < List[smallestChild].Time)
                 {
                     smallestChild = rightChild;
                 }
@@ -57,20 +57,21 @@ namespace RashkouProject.Mathematics
                     break;
                 }
 
-                Recovery temp = list[i];
-                list[i] = list[smallestChild];
-                list[smallestChild] = temp;
+                Recovery temp = List[i];
+                List[i] = List[smallestChild];
+                List[smallestChild] = temp;
                 i = smallestChild;
             }
         }
 
         public Recovery GetMin()
         {
-            Recovery result = list[0];
-            list[0] = list[HeapSize() - 1];
-            list.RemoveAt(HeapSize() - 1);
+            Recovery result = List[0];
+            List[0] = List[HeapSize() - 1];
+            List.RemoveAt(HeapSize() - 1);
             Heapify(0);
             return result;
         }
+
     }
 }

@@ -26,6 +26,11 @@ namespace RashkouProject
                     World.Player.HP = World.Player.HP + 9000;
                     World.State = new GameMode();
                     break;
+                case "wait":
+                    World.Player.Wait();
+                    World.TimeController.Execute();
+                    World.State = new GameMode();
+                    break;
                 default:
                     World.State = new GameMode();
                     break;

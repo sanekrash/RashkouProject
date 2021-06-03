@@ -14,5 +14,8 @@ namespace RashkouProject.Game
         public virtual void OnDespawn()
         {
         }
+        public virtual void Act()
+        {
+        }
     }
 }

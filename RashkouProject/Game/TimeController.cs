@@ -16,8 +16,23 @@ namespace RashkouProject.Game
 
         public void Execute()
         {
+            Recoveries.List[0].Subject.Act();
             Time = Recoveries.GetMin().Time;
         }
+
+        public void ExecuteUntil(Entity entity)
+        {
+            while (true)
+            {
+                Time = Recoveries.List[0].Time;
+                var subject = Recoveries.GetMin();
+                subject.Subject.Act();
+                if (subject.Subject == World.Player) 
+                    return;
+            }
+        }
+
+
     }
 
     public class Recovery

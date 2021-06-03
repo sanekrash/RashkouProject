@@ -14,20 +14,24 @@ namespace RashkouProject
             {
                 case ConsoleKey.UpArrow:
                     World.Player.Move(0, -1);
-                    World.TimeController.Execute();
+                    World.TimeController.ExecuteUntil(World.Player);
                     break;
                 case ConsoleKey.LeftArrow:
                     World.Player.Move(-1, 0);
-                    World.TimeController.Execute();
+                    World.TimeController.ExecuteUntil(World.Player);
                     break;
                 case ConsoleKey.RightArrow:
                     World.Player.Move(1, 0);
-                    World.TimeController.Execute();
+                    World.TimeController.ExecuteUntil(World.Player);
                     break;
                 case ConsoleKey.DownArrow:
                     World.Player.Move(0, 1);
-                    World.TimeController.Execute();
+                    World.TimeController.ExecuteUntil(World.Player);
                     break;
+  /*              case ConsoleKey.:
+                    World.Player.Wait();
+                    World.TimeController.Execute();
+                    break;*/
                 case ConsoleKey.L:
                     World.State = new LookMode(World.Player.X,World.Player.Y);
                     break;

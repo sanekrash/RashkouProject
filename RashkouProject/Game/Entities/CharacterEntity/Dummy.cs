@@ -21,14 +21,20 @@ namespace RashkouProject.Game.Entities.CharacterEntity
             Passability = false;
         }
 
+        public override void OnSpawn()
+        {
+            Wait();
+        }
+
         public override void OnDespawn()
         {
             World.CurrentLocation.Tiles[X,Y].AddEntity(new TestItem());
         }
 
-        public void Envy(CharEntity entity)
+        public override void Act()
         {
-            entity.GetHit(new Attack(1));
+            World.Player.GetHit(new Attack(1));
+            World.TimeController.GetRecovery(25,this);
         }
     }
 }

@@ -1,4 +1,6 @@
+using System;
 using RashkouProject.Game.Fight;
+using RashkouProject.Mathematics;
 
 namespace RashkouProject.Game.Entities
 {
@@ -9,6 +11,7 @@ namespace RashkouProject.Game.Entities
         public int Level;
         public int Exp;
         public int Damage;
+        public BinaryHeap<Entity>.Node CurrentTimeLapse;
         public void Move(int x, int y)
         {
             if (World.CurrentLocation.Tiles[X + x, Y + y].IsPassing())
@@ -25,19 +28,24 @@ namespace RashkouProject.Game.Entities
                     attackedEntity.GetHit(new Attack(Damage));
                 }
             }
-            World.TimeController.GetRecovery(100,this);
+            CurrentTimeLapse = World.TimeController.AddTimeLapse(100,this);
         }
         public void Wait()
         {
-            World.TimeController.GetRecovery(100,this);
+            CurrentTimeLapse = World.TimeController.AddTimeLapse(100,this);
         }
 
+        public void Die()
+        {
+            CurrentTimeLapse.Remove();
+            World.CurrentLocation.Despawn(this);
+        }
         public void GetHit(Attack attack)
         {
             HP = HP - attack.Damage;
             if (HP <= 0)
             {
-                World.CurrentLocation.Despawn(this);
+                Die();
             }
         }
 

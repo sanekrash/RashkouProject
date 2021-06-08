@@ -49,6 +49,9 @@ namespace RashkouProject
             }
             CurrentLocation.Spawn(Player);
             CurrentLocation.Spawn(new Dummy("loh", 10, 10));
+            CurrentLocation.Spawn(new Dummy("loh", 11, 10));
+            CurrentLocation.Spawn(new Dummy("loh", 12, 10));
+
 
 
 

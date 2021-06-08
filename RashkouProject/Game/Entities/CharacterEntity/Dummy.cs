@@ -34,7 +34,7 @@ namespace RashkouProject.Game.Entities.CharacterEntity
         public override void Act()
         {
             World.Player.GetHit(new Attack(1));
-            World.TimeController.GetRecovery(25,this);
+            CurrentTimeLapse = World.TimeController.AddTimeLapse(150,this);
         }
     }
 }

@@ -6,28 +6,31 @@ namespace RashkouProject.Game
 {
     public class TimeController
     {
-        public BinaryHeap Recoveries = new BinaryHeap();
+        public BinaryHeap<Entity> TimeLapseList = new();
         public static int Time = 0;
 
-        public void GetRecovery(int time, Entity entity)
+        public BinaryHeap<Entity>.Node AddTimeLapse(int time, Entity entity)
         {
-            Recoveries.Add(new Recovery(time, entity));
+            return TimeLapseList.Add(entity, Time + time);
         }
 
         public void Execute()
         {
-            Recoveries.List[0].Subject.Act();
-            Time = Recoveries.GetMin().Time;
+            TimeLapseList.GetMin().Data.Act();
+            TimeLapseList.GetMin().Remove(); 
+            Time = TimeLapseList.GetMin().Priority;
         }
+
 
         public void ExecuteUntil(Entity entity)
         {
             while (true)
             {
-                Time = Recoveries.List[0].Time;
-                var subject = Recoveries.GetMin();
-                subject.Subject.Act();
-                if (subject.Subject == World.Player) 
+                var subject = TimeLapseList.GetMin();
+                Time = TimeLapseList.GetMin().Priority;
+                TimeLapseList.GetMin().Remove();
+                subject.Data.Act();
+                if (subject.Data == World.Player) 
                     return;
             }
         }
@@ -35,14 +38,5 @@ namespace RashkouProject.Game
 
     }
 
-    public class Recovery
-    {
-        public int Time;
-        public Entity Subject;
-        public Recovery(int time, Entity entity)
-        {
-            Time = TimeController.Time + time;
-            Subject = entity;
-        }
-    }
+
 }

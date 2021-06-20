@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Xml;
 using RashkouProject.Game.Fight;
 using RashkouProject.Mathematics;
 
@@ -11,6 +13,7 @@ namespace RashkouProject.Game.Entities
         public int Level;
         public int Exp;
         public int Damage;
+        public List<ItemEntity> Inventory = new ();
         public BinaryHeap<Entity>.Node CurrentTimeLapse;
         public void Move(int x, int y)
         {
@@ -35,8 +38,24 @@ namespace RashkouProject.Game.Entities
             CurrentTimeLapse = World.TimeController.AddTimeLapse(100,this);
         }
 
+        public void Drop(ItemEntity entity)
+        {
+            World.CurrentLocation.Tiles[X,Y].AddEntity(entity);
+            Inventory.Remove(entity);
+        }
+
+        public void DropAll()
+        {
+            for (int i = 0; i < Inventory.Count; i++)
+            {
+                World.CurrentLocation.Tiles[X,Y].AddEntity(Inventory[i]);
+            }
+            Inventory.Clear();
+        }
+
         public void Die()
         {
+            DropAll();
             CurrentTimeLapse.Remove();
             World.CurrentLocation.Despawn(this);
         }

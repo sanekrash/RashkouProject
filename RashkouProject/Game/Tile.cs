@@ -55,11 +55,10 @@ namespace RashkouProject.Game
         {
             return new(PriorityEntity().Glyph, White, Black);
         }
-        
-        public Entity PriorityEntity()
+
+        public List<Entity> ReturnEntities()
         {
             var entities = new List<Entity>();
-            Entity returnentity = null;
             int priority = -1;
             foreach (var mapEntity in Mapentities)
             {
@@ -73,8 +72,14 @@ namespace RashkouProject.Game
             {
                 entities.Add(charentity);
             }
+            return entities;
+        }
+        public Entity PriorityEntity()
+        {
 
-            foreach (var entity in entities)
+            Entity returnentity = null;
+            int priority = -1;
+            foreach (var entity in ReturnEntities())
             {
                 if (entity.Priority > priority)
                 {

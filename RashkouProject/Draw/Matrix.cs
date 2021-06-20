@@ -44,6 +44,7 @@ namespace RashkouProject.Draw
             }
         }
 
+
         public void Print(Matrix matrix, int x, int y)
         {
             var w = Widht;

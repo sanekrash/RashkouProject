@@ -24,7 +24,7 @@ namespace RashkouProject.Game
 
         public void Spawn(CharEntity e)
         {
-//            CharEntities.Add(e);
+            CharEntities.Add(e);
             Tiles[e.X, e.Y].AddEntity(e);
             e.OnSpawn();
         }

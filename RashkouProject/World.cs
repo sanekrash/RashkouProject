@@ -28,7 +28,7 @@ namespace RashkouProject
         //       int playerX = 20, playerY = 20;
         public World()
         {
-            Player = new Human("Mailine Vestochka", 2, 2);
+            Player = new Human("Eferd the Stormcaller ", 2, 2);
             Player.Glyph = '@';
             Console.Title = "Character: " + Player.Name + " HP: " + Player.HP + "/" + Player.MaxHP;
             CurrentLocation = new Location(50, 50);
@@ -48,9 +48,8 @@ namespace RashkouProject
                 CurrentLocation.Tiles[49, y].AddEntity(new Wall());
             }
             CurrentLocation.Spawn(Player);
-            CurrentLocation.Spawn(new Dummy("loh", 10, 10));
-            CurrentLocation.Spawn(new Dummy("loh", 11, 10));
-            CurrentLocation.Spawn(new Dummy("loh", 12, 10));
+            CurrentLocation.Spawn(new Somebody("loh", 2, 1));
+
 
 
 

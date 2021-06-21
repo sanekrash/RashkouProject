@@ -38,6 +38,13 @@ namespace RashkouProject
                 case ConsoleKey.C:
                     World.State = new CommandMode();
                     break;
+                case ConsoleKey.I:
+                    World.State = new InventoryMode();
+                    break;
+                case ConsoleKey.G:
+                    World.State = new PickupMode(World.Player.X,World.Player.Y);
+                    break;
+
             }
         }
 
@@ -60,7 +67,7 @@ namespace RashkouProject
                 GameMatrix[x, 26] = new Char('≡', White, Black);
             }
 
-            GameMatrix.PrintLine(World.Player.Name, 40 - World.Player.Name.Length / 2, 25, Green, Black);
+            GameMatrix.PrintLine(World.Player.Name+TimeController.Time, 40 - World.Player.Name.Length / 2, 25, Green, Black);
             GameMatrix.PrintLine("HP: " + World.Player.HP + "/" + World.Player.MaxHP, 2, 28, White, Black);
             GameMatrix.PrintLine("MP: " + World.Player.MP + "/" + World.Player.MaxMP, 40, 28, White, Black);
             GameMatrix.PrintLine("Level: " + World.Player.Level, 2, 30, White, Black);

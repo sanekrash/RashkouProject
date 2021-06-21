@@ -38,8 +38,16 @@ namespace RashkouProject.Game.Entities
             CurrentTimeLapse = World.TimeController.AddTimeLapse(100,this);
         }
 
+        public void Pickup(ItemEntity entity)
+        {
+            CurrentTimeLapse = World.TimeController.AddTimeLapse(100,this);
+            Inventory.Add(entity);
+            World.CurrentLocation.Tiles[X,Y].DeleteEntity(entity);
+        } 
+
         public void Drop(ItemEntity entity)
         {
+            CurrentTimeLapse = World.TimeController.AddTimeLapse(100,this);
             World.CurrentLocation.Tiles[X,Y].AddEntity(entity);
             Inventory.Remove(entity);
         }

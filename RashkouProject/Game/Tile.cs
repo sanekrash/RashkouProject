@@ -29,6 +29,10 @@ namespace RashkouProject.Game
         {
             CharEntities.Remove(entity);
         }
+        public void DeleteEntity(ItemEntity entity)
+        {
+            ItemEntities.Remove(entity);
+        }
 
         public bool IsPassing()
         {

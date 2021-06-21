@@ -25,9 +25,16 @@ namespace RashkouProject.Game.Entities.CharacterEntity
         public override void OnSpawn()
         {
             Wait();
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 99; i++)
             {
                 Inventory.Add(new TestItem());
+                Inventory[i].Name = i+ " Литр ифчи";
+                if ( i % 3 == 0)
+                Inventory[i].Name = i+ " Говняк";
+                if ( i % 5 == 0)
+                Inventory[i].Name = i+ " Желемыш";
+
+
             }
 
         }

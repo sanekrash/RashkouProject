@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using RashkouProject.Draw;
@@ -10,11 +11,16 @@ namespace RashkouProject.Game
     public class Location
     {
         public Tile[,] Tiles;
+        public bool[,] VisionMap;
         public List<CharEntity> CharEntities = new List<CharEntity>();
+        public int LenghtX, LenghtY;
 
         public Location(int w, int h)
         {
             Tiles = new Tile[w, h];
+            VisionMap = new bool[w, h];
+            LenghtX = w;
+            LenghtY = h;
             for (int x = 0; x < w; x++)
             for (int y = 0; y < h; y++)
             {
@@ -36,6 +42,39 @@ namespace RashkouProject.Game
             e.OnDespawn();
         }
 
+        public void CastRay(int x, int y, int range, float vectorX, float vectorY)
+        {
+            var ox = x + 0.5f;
+            var oy = y + 0.5f;
+            VisionMap[x, y] = true;
+            ox = ox + vectorX;
+            oy = oy + vectorY;
+            for (int j = 1; j < range; j++)
+            {
+                VisionMap[(int) ox, (int) oy] = true;
+                if (Tiles[(int) ox,(int) oy].IsPassing() == false)
+                    return;
+                ox = ox + vectorX;
+                oy = oy + vectorY;
+            }
+        }
+        public void ViewMap(int x, int y, int range)
+        {
+            for (int i = 0; i < LenghtX; i++)
+            for (int j = 0; j < LenghtY; j++)
+            {
+                VisionMap[i, j] = false;
+            }
+            float vectorX, vectorY;
+            for (int i = 0; i < 360; i++)
+            {
+                vectorX=(float) Math.Cos(i*0.01745f);
+                vectorY=(float) Math.Sin(i*0.01745f);
+                CastRay(x,y,range,vectorX,vectorY);
+            }
+        }
+
+
         public Matrix Camera(int x, int y)
         {
             var Matrix = new Matrix(79, 25, new Char(' ', Black, Black));
@@ -44,7 +83,7 @@ namespace RashkouProject.Game
                 for (int z = y - 12; z < y + 12; z++)
                 {
                     if (i >= 0 && i < Tiles.GetLength(0) && z >= 0 &&
-                        z < Tiles.GetLength(1))
+                        z < Tiles.GetLength(1) && VisionMap[i,z])
                     {
                         Matrix[i + 39 - x, z + 12 - y] = Tiles[i, z].PrintTile();
 

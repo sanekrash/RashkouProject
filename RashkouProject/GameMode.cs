@@ -73,6 +73,7 @@ namespace RashkouProject
             GameMatrix.PrintLine("Level: " + World.Player.Level, 2, 30, White, Black);
             GameMatrix.PrintLine("EXP: " + World.Player.Exp, 40, 30, White, Black);
             GameMatrix.MatrixDrawChar();
+            Console.Title = "Character: " + World.Player.Name + " HP: " + World.Player.HP + "/" + World.Player.MaxHP;
         }
     }
 }

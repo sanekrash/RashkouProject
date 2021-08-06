@@ -5,8 +5,16 @@ namespace RashkouProject.Game.Entities
         public TestItem()
         {
             Priority = 100;
-            Name = "Тестовый предмет";
+            TimeCost = 100;
+            Name = "Булочка";
             Glyph = '%';
+            Consumable = true;
+        }
+
+        public override void Use(CharEntity user)
+        {
+            if (user.HP < user.MaxHP) 
+                user.HP++;
         }
     }
 }

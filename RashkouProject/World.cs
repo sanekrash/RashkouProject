@@ -58,6 +58,10 @@ namespace RashkouProject
             CurrentLocation.Tiles[4, 3].AddEntity(new Wall());
             CurrentLocation.Tiles[4, 4].AddEntity(new Wall());
             CurrentLocation.Tiles[4, 5].AddEntity(new Wall());
+            CurrentLocation.Tiles[6, 5].AddEntity(new Wall());
+            CurrentLocation.Tiles[6, 3].AddEntity(new Wall());
+            CurrentLocation.Tiles[4, 7].AddEntity(new Wall());
+
             World.CurrentLocation.ViewMap(World.Player.X, World.Player.Y, 16);
             State = new GameMode();
             State.Output();

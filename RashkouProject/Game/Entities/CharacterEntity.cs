@@ -17,6 +17,14 @@ namespace RashkouProject.Game.Entities
         public BinaryHeap<Entity>.Node CurrentTimeLapse;
         public void Move(int x, int y)
         {
+            
+            if (World.CurrentLocation.Tiles[X, Y].CharEntities.Count > 0)
+            {
+                foreach (var attackedEntity in World.CurrentLocation.Tiles[X + x, Y + y].CharList())
+                {
+                    attackedEntity.GetHit(new Attack(Damage));
+                }
+            }
             if (World.CurrentLocation.Tiles[X + x, Y + y].IsPassing())
             {
                 World.CurrentLocation.Tiles[X, Y].DeleteEntity(this);
@@ -24,6 +32,7 @@ namespace RashkouProject.Game.Entities
                 Y = Y + y;
                 World.CurrentLocation.Tiles[X, Y].AddEntity(this);
             }
+            else 
             if (World.CurrentLocation.Tiles[X, Y].CharEntities.Count > 0)
             {
                 foreach (var attackedEntity in World.CurrentLocation.Tiles[X + x, Y + y].CharList())
@@ -50,6 +59,14 @@ namespace RashkouProject.Game.Entities
             CurrentTimeLapse = World.TimeController.AddTimeLapse(100,this);
             World.CurrentLocation.Tiles[X,Y].AddEntity(entity);
             Inventory.Remove(entity);
+        }
+
+        public void Use(ItemEntity entity)
+        {
+            CurrentTimeLapse = World.TimeController.AddTimeLapse(entity.TimeCost,this);
+            entity.Use(this);
+            if (entity.Consumable)
+                Inventory.Remove(entity);
         }
 
         public void DropAll()

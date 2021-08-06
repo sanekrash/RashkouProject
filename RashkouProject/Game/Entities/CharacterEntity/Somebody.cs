@@ -28,11 +28,7 @@ namespace RashkouProject.Game.Entities.CharacterEntity
             for (int i = 0; i < 99; i++)
             {
                 Inventory.Add(new TestItem());
-                Inventory[i].Name = i+ " Литр ифчи";
-                if ( i % 3 == 0)
-                Inventory[i].Name = i+ " Говняк";
-                if ( i % 5 == 0)
-                Inventory[i].Name = i+ " Желемыш";
+                Inventory[i].Name = i+ "Булочка";
 
 
             }

@@ -28,25 +28,35 @@ namespace RashkouProject
         //       int playerX = 20, playerY = 20;
         public World()
         {
-            Player = new Human("Edward Shadow ", 2, 2);
+            Player = new Human("Emilia", 2, 2);
             Player.Glyph = '@';
             Console.Title = "Character: " + Player.Name + " HP: " + Player.HP + "/" + Player.MaxHP;
             CurrentLocation = new Location(50, 50);
             for (int x = 0; x < 50; x++)
             for (int y = 0; y < 50; y++)
-                CurrentLocation.Tiles[x, y].AddEntity(new Floor());
+                CurrentLocation.Spawn(new Floor(x, y));
+
 
             for (int x = 0; x < 50; x++)
             {
-                CurrentLocation.Tiles[x, 0].AddEntity(new Wall());
-                CurrentLocation.Tiles[x, 49].AddEntity(new Wall());
+                CurrentLocation.Spawn(new Bush(x, 0));
+                CurrentLocation.Spawn(new Bush(x, 49));
             }
 
-            for (int y = 1; y < 50; y++)
+
+            for (int y = 0; y < 50; y++)
             {
-                CurrentLocation.Tiles[0, y].AddEntity(new Wall());
-                CurrentLocation.Tiles[49, y].AddEntity(new Wall());
+                CurrentLocation.Spawn(new Bush(0, y));
+                CurrentLocation.Spawn(new Bush(49, y));
             }
+            for (int x = 25; x < 50; x++)
+            for (int y = 25; y < 50; y++)
+                CurrentLocation.Spawn(new Bush(x, y));
+            CurrentLocation.Spawn(new BearTrap(10, 10));
+            CurrentLocation.Spawn(new BearTrap(11, 11));
+
+
+
             CurrentLocation.Spawn(Player);
             CurrentLocation.Spawn(new Somebody("loh", 2, 1));
 
@@ -54,13 +64,6 @@ namespace RashkouProject
 
 
 
-            CurrentLocation.Tiles[25, 25].AddEntity(new TestItem());
-            CurrentLocation.Tiles[4, 3].AddEntity(new Wall());
-            CurrentLocation.Tiles[4, 4].AddEntity(new Wall());
-            CurrentLocation.Tiles[4, 5].AddEntity(new Wall());
-            CurrentLocation.Tiles[6, 5].AddEntity(new Wall());
-            CurrentLocation.Tiles[6, 3].AddEntity(new Wall());
-            CurrentLocation.Tiles[4, 7].AddEntity(new Wall());
             CurrentLocation.Tiles[4, 9].AddEntity(new GardeningScissors());
             CurrentLocation.Tiles[4, 8].AddEntity(new Sword());
             CurrentLocation.Tiles[4, 9].AddEntity(new Cylinder());

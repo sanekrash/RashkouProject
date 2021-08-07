@@ -28,7 +28,6 @@ namespace RashkouProject.Game.Entities.CharacterEntity
 
         public override void OnDespawn()
         {
-            World.CurrentLocation.Tiles[X,Y].AddEntity(new TestItem());
         }
 
         public override void Act()

@@ -45,6 +45,10 @@ namespace RashkouProject.Game.Entities
                 X = X + x;
                 Y = Y + y;
                 World.CurrentLocation.Tiles[X, Y].AddEntity(this);
+                foreach (var mapentity in World.CurrentLocation.Tiles[X, Y].Mapentities)
+                {
+                    mapentity.OnStep(this);
+                }
             }
             else if (World.CurrentLocation.Tiles[X, Y].CharEntities.Count > 0)
             {
@@ -54,31 +58,31 @@ namespace RashkouProject.Game.Entities
                 }
             }
 
-            CurrentTimeLapse = World.TimeController.AddTimeLapse(100, this);
-        }
+            AddTimeLapse(100);
+
+}
 
         public void Wait()
         {
-            CurrentTimeLapse = World.TimeController.AddTimeLapse(100, this);
+            AddTimeLapse(100);
         }
 
         public void Pickup(ItemEntity entity)
         {
-            CurrentTimeLapse = World.TimeController.AddTimeLapse(100, this);
+            AddTimeLapse(100);
             Inventory.Add(entity);
             World.CurrentLocation.Tiles[X, Y].DeleteEntity(entity);
         }
 
         public void Drop(ItemEntity entity)
         {
-            CurrentTimeLapse = World.TimeController.AddTimeLapse(100, this);
+            AddTimeLapse(100);
             World.CurrentLocation.Tiles[X, Y].AddEntity(entity);
             Inventory.Remove(entity);
         }
 
         public void Use(ItemEntity entity)
         {
-            CurrentTimeLapse = World.TimeController.AddTimeLapse(entity.TimeCost, this);
             entity.Use(this);
             if (entity.Consumable)
                 Inventory.Remove(entity);
@@ -131,6 +135,14 @@ namespace RashkouProject.Game.Entities
             {
                 Die();
             }
+        }
+
+        public void AddTimeLapse(int number)
+        {
+            CurrentTimeLapse = World.TimeController.AddTimeLapse(number, this);
+            if (this == World.Player)
+                World.TimeController.ExecuteUntil(World.Player);
+
         }
     }
 }

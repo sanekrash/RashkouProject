@@ -56,7 +56,6 @@ namespace RashkouProject
                     if (_selectedTileEntities.Count > 0) 
                     {
                         World.Player.Pickup(World.CurrentLocation.Tiles[X, Y].ItemEntities[_select + _page * 10]);
-                        World.TimeController.ExecuteUntil(World.Player);
                         LookTile();
                     }
                     break;

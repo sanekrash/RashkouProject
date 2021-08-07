@@ -1,8 +1,8 @@
 namespace RashkouProject.Game.Entities
 {
-    public class TestItem : ItemEntity
+    public class Bun : ItemEntity
     {
-        public TestItem()
+        public Bun()
         {
             ItemType = ItemType.Food;
             Priority = 100;
@@ -16,6 +16,7 @@ namespace RashkouProject.Game.Entities
         {
             if (user.HP < user.MaxHP) 
                 user.HP++;
+            user.AddTimeLapse(TimeCost);
         }
     }
 }

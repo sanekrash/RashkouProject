@@ -45,7 +45,6 @@ namespace RashkouProject
                     if (World.Player.Inventory.Count > 0) 
                     { 
                         World.Player.Drop(World.Player.Inventory[_select + _page * 35]);
-                        World.TimeController.ExecuteUntil(World.Player);
                         _maxselect = World.Player.Inventory.Count;
                         _maxpage = World.Player.Inventory.Count / 35;
                         _select = 0;
@@ -55,8 +54,9 @@ namespace RashkouProject
                     if (World.Player.Inventory.Count > 0)
                     {
                         World.Player.Use(World.Player.Inventory[_select + _page * 35]);
-                        World.TimeController.ExecuteUntil(World.Player);
-                        World.State = new GameMode();
+                        _maxselect = World.Player.Inventory.Count;
+                        _maxpage = World.Player.Inventory.Count / 35;
+                        _select = 0;
                     }
                     break;
                 case ConsoleKey.W:

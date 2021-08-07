@@ -13,6 +13,8 @@ namespace RashkouProject.Game
         public Tile[,] Tiles;
         public bool[,] VisionMap;
         public List<CharEntity> CharEntities = new List<CharEntity>();
+        public List<MapEntity> MapEntities = new List<MapEntity>();
+
         public int LenghtX, LenghtY;
 
         public Location(int w, int h)
@@ -34,10 +36,22 @@ namespace RashkouProject.Game
             Tiles[e.X, e.Y].AddEntity(e);
             e.OnSpawn();
         }
+        public void Spawn(MapEntity e)
+        {
+            MapEntities.Add(e);
+            Tiles[e.X, e.Y].AddEntity(e);
+            e.OnSpawn();
+        }
 
         public void Despawn(CharEntity e)
         {
             CharEntities.Remove(e);
+            Tiles[e.X, e.Y].DeleteEntity(e);
+            e.OnDespawn();
+        }
+        public void Despawn(MapEntity e)
+        {
+            MapEntities.Remove(e);
             Tiles[e.X, e.Y].DeleteEntity(e);
             e.OnDespawn();
         }
@@ -51,6 +65,10 @@ namespace RashkouProject.Game
             oy = oy + vectorY;
             for (int j = 1; j < range; j++)
             {
+                if (0 > ox || ox > World.CurrentLocation.Tiles.GetLength(0))
+                    return;
+                if (0 > oy || oy > World.CurrentLocation.Tiles.GetLength(1))
+                    return;
                 VisionMap[(int) ox, (int) oy] = true;
                 if (Tiles[(int) ox,(int) oy].IsPassing() == false)
                     return;
@@ -86,12 +104,13 @@ namespace RashkouProject.Game
                         z < Tiles.GetLength(1) && VisionMap[i,z])
                     {
                         Matrix[i + 39 - x, z + 12 - y] = Tiles[i, z].PrintTile();
-
                     }
                 }
             }
 
             return Matrix;
         }
+
+
     }
 }

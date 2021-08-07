@@ -14,19 +14,15 @@ namespace RashkouProject
             {
                 case ConsoleKey.UpArrow:
                     World.Player.Move(0, -1);
-                    World.TimeController.ExecuteUntil(World.Player);
                     break;
                 case ConsoleKey.LeftArrow:
                     World.Player.Move(-1, 0);
-                    World.TimeController.ExecuteUntil(World.Player);
                     break;
                 case ConsoleKey.RightArrow:
                     World.Player.Move(1, 0);
-                    World.TimeController.ExecuteUntil(World.Player);
                     break;
                 case ConsoleKey.DownArrow:
                     World.Player.Move(0, 1);
-                    World.TimeController.ExecuteUntil(World.Player);
                     break;
   /*              case ConsoleKey.:
                     World.Player.Wait();

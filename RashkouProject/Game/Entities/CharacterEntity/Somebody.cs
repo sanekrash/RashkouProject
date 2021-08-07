@@ -27,7 +27,7 @@ namespace RashkouProject.Game.Entities.CharacterEntity
             Wait();
             for (int i = 0; i < 99; i++)
             {
-                Inventory.Add(new TestItem());
+                Inventory.Add(new Bun());
                 Inventory[i].Name = i+ "Булочка";
 
 

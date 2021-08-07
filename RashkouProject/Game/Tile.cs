@@ -17,21 +17,29 @@ namespace RashkouProject.Game
         {
             Mapentities.Add(entity);
         }
+
         public void AddEntity(CharEntity entity)
         {
             CharEntities.Add(entity);
         }
+
         public void AddEntity(ItemEntity entity)
         {
             ItemEntities.Add(entity);
         }
+
         public void DeleteEntity(CharEntity entity)
         {
             CharEntities.Remove(entity);
         }
+
         public void DeleteEntity(ItemEntity entity)
         {
             ItemEntities.Remove(entity);
+        }
+        public void DeleteEntity(MapEntity entity)
+        {
+            Mapentities.Remove(entity);
         }
 
         public bool IsPassing()
@@ -45,19 +53,29 @@ namespace RashkouProject.Game
 
             return true;
         }
+
+        public MapEntity HaveType(MapObjectType type)
+        {
+            foreach (var entity in Mapentities)
+                if (entity.Type == type)
+                    return entity;
+            return null;
+        }
+
         public List<CharEntity> CharList()
         {
-            List<CharEntity> charEntities = new List<CharEntity>(); 
+            List<CharEntity> charEntities = new List<CharEntity>();
             foreach (var charEntity in CharEntities)
             {
                 charEntities.Add(charEntity);
             }
+
             return charEntities;
         }
 
         public Char PrintTile()
         {
-            return new(PriorityEntity().Glyph, White, Black);
+            return new(PriorityEntity().Glyph, PriorityEntity().ForGlyphColor, PriorityEntity().BackGlyphColor);
         }
 
         public List<Entity> ReturnEntities()
@@ -68,19 +86,22 @@ namespace RashkouProject.Game
             {
                 entities.Add(mapEntity);
             }
+
             foreach (var itemEntity in ItemEntities)
             {
                 entities.Add(itemEntity);
             }
+
             foreach (var charentity in CharEntities)
             {
                 entities.Add(charentity);
             }
+
             return entities;
         }
+
         public Entity PriorityEntity()
         {
-
             Entity returnentity = null;
             int priority = -1;
             foreach (var entity in ReturnEntities())
@@ -91,8 +112,10 @@ namespace RashkouProject.Game
                     returnentity = entity;
                 }
             }
+
             return returnentity;
         }
+
 
     }
 }

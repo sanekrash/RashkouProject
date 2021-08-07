@@ -4,6 +4,7 @@ namespace RashkouProject.Game.Entities
     {
         public int TimeCost;
         public bool Consumable;
+        public ItemType ItemType;
         public virtual void Use(CharEntity user)
         {
         }

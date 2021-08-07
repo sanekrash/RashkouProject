@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Xml;
 using RashkouProject.Game.Fight;
 using RashkouProject.Mathematics;
@@ -8,16 +9,28 @@ namespace RashkouProject.Game.Entities
 {
     public abstract class CharEntity : Entity
     {
-        
         public int HP, MaxHP, MP, MaxMP;
         public int Level;
         public int Exp;
         public int Damage;
-        public List<ItemEntity> Inventory = new ();
+        public List<ItemEntity> Inventory = new();
+
+        public List<EquipmentSlot> EquipmentSlots = new()
+        {
+            new EquipmentSlot(ItemType.Weapon, 0, "Оружие"),
+            new EquipmentSlot(ItemType.Bodywear, 1, "Одежда"),
+            new EquipmentSlot(ItemType.Pants, 2, "Штаны"),
+            new EquipmentSlot(ItemType.Shoes, 3, "Ботинки"),
+            new EquipmentSlot(ItemType.Gloves, 4, "Перчатки"),
+            new EquipmentSlot(ItemType.Mask, 5, "Маска"),
+            new EquipmentSlot(ItemType.Hat, 6, "Головной убор")
+        };
+
+
         public BinaryHeap<Entity>.Node CurrentTimeLapse;
+
         public void Move(int x, int y)
         {
-            
             if (World.CurrentLocation.Tiles[X, Y].CharEntities.Count > 0)
             {
                 foreach (var attackedEntity in World.CurrentLocation.Tiles[X + x, Y + y].CharList())
@@ -25,6 +38,7 @@ namespace RashkouProject.Game.Entities
                     attackedEntity.GetHit(new Attack(Damage));
                 }
             }
+
             if (World.CurrentLocation.Tiles[X + x, Y + y].IsPassing())
             {
                 World.CurrentLocation.Tiles[X, Y].DeleteEntity(this);
@@ -32,49 +46,74 @@ namespace RashkouProject.Game.Entities
                 Y = Y + y;
                 World.CurrentLocation.Tiles[X, Y].AddEntity(this);
             }
-            else 
-            if (World.CurrentLocation.Tiles[X, Y].CharEntities.Count > 0)
+            else if (World.CurrentLocation.Tiles[X, Y].CharEntities.Count > 0)
             {
                 foreach (var attackedEntity in World.CurrentLocation.Tiles[X + x, Y + y].CharList())
                 {
                     attackedEntity.GetHit(new Attack(Damage));
                 }
             }
-            CurrentTimeLapse = World.TimeController.AddTimeLapse(100,this);
+
+            CurrentTimeLapse = World.TimeController.AddTimeLapse(100, this);
         }
+
         public void Wait()
         {
-            CurrentTimeLapse = World.TimeController.AddTimeLapse(100,this);
+            CurrentTimeLapse = World.TimeController.AddTimeLapse(100, this);
         }
 
         public void Pickup(ItemEntity entity)
         {
-            CurrentTimeLapse = World.TimeController.AddTimeLapse(100,this);
+            CurrentTimeLapse = World.TimeController.AddTimeLapse(100, this);
             Inventory.Add(entity);
-            World.CurrentLocation.Tiles[X,Y].DeleteEntity(entity);
-        } 
+            World.CurrentLocation.Tiles[X, Y].DeleteEntity(entity);
+        }
 
         public void Drop(ItemEntity entity)
         {
-            CurrentTimeLapse = World.TimeController.AddTimeLapse(100,this);
-            World.CurrentLocation.Tiles[X,Y].AddEntity(entity);
+            CurrentTimeLapse = World.TimeController.AddTimeLapse(100, this);
+            World.CurrentLocation.Tiles[X, Y].AddEntity(entity);
             Inventory.Remove(entity);
         }
 
         public void Use(ItemEntity entity)
         {
-            CurrentTimeLapse = World.TimeController.AddTimeLapse(entity.TimeCost,this);
+            CurrentTimeLapse = World.TimeController.AddTimeLapse(entity.TimeCost, this);
             entity.Use(this);
             if (entity.Consumable)
                 Inventory.Remove(entity);
+        }
+
+        public void Equip(ItemEntity entity)
+        {
+            foreach (var slot in EquipmentSlots)
+            {
+                if (entity.ItemType == slot.Type)
+                {
+                    if (slot.Slot != null)
+                        Inventory.Add(slot.Slot);
+                    slot.Slot = entity;
+                    Inventory.Remove(entity);
+                }
+            }
+        }
+
+        public void UnEquip(EquipmentSlot slot)
+        {
+            if (slot.Slot != null)
+            {
+                Inventory.Add(slot.Slot);
+                slot.Slot = null;
+            }
         }
 
         public void DropAll()
         {
             for (int i = 0; i < Inventory.Count; i++)
             {
-                World.CurrentLocation.Tiles[X,Y].AddEntity(Inventory[i]);
+                World.CurrentLocation.Tiles[X, Y].AddEntity(Inventory[i]);
             }
+
             Inventory.Clear();
         }
 
@@ -84,6 +123,7 @@ namespace RashkouProject.Game.Entities
             CurrentTimeLapse.Remove();
             World.CurrentLocation.Despawn(this);
         }
+
         public void GetHit(Attack attack)
         {
             HP = HP - attack.Damage;
@@ -92,7 +132,5 @@ namespace RashkouProject.Game.Entities
                 Die();
             }
         }
-
-
     }
-}   
+}

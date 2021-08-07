@@ -61,6 +61,14 @@ namespace RashkouProject
             CurrentLocation.Tiles[6, 5].AddEntity(new Wall());
             CurrentLocation.Tiles[6, 3].AddEntity(new Wall());
             CurrentLocation.Tiles[4, 7].AddEntity(new Wall());
+            CurrentLocation.Tiles[4, 9].AddEntity(new GardeningScissors());
+            CurrentLocation.Tiles[4, 8].AddEntity(new Sword());
+            CurrentLocation.Tiles[4, 9].AddEntity(new Cylinder());
+            CurrentLocation.Tiles[4, 9].AddEntity(new Shirt());
+            CurrentLocation.Tiles[4, 9].AddEntity(new Pants());
+            CurrentLocation.Tiles[4, 9].AddEntity(new Gloves());
+            CurrentLocation.Tiles[4, 9].AddEntity(new Bandana());
+            CurrentLocation.Tiles[4, 9].AddEntity(new Shoes());
 
             World.CurrentLocation.ViewMap(World.Player.X, World.Player.Y, 16);
             State = new GameMode();

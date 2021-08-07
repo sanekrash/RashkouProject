@@ -103,9 +103,11 @@ namespace RashkouProject
                 GameMatrix[x, 24] = new Char('≡', White, Black);
                 GameMatrix[x, 26] = new Char('≡', White, Black);
             }
-
-            GameMatrix.PrintLine(World.CurrentLocation.Tiles[X, Y].PriorityEntity().Name,
+            if (World.CurrentLocation.VisionMap[X,Y])
+                GameMatrix.PrintLine(World.CurrentLocation.Tiles[X, Y].PriorityEntity().Name,
                 40 - World.CurrentLocation.Tiles[X, Y].PriorityEntity().Name.Length / 2, 25, Green, Black);
+            else
+                GameMatrix.PrintLine("Вы не видите эту область", 40 - 24 / 2, 25, Green, Black);
             for (int y = 27; y < 40; y++)
                 GameMatrix.Print(new Char('|', White, Black), 40, y);
             if (World.CurrentLocation.VisionMap[X,Y])

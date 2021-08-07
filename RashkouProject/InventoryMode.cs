@@ -33,11 +33,11 @@ namespace RashkouProject
                         _page++;
                     _select = 0;
                     break;
-                case ConsoleKey.PageUp:
+                case ConsoleKey.UpArrow:
                     if (_select > 0)
                         _select--;
                     break;
-                case ConsoleKey.PageDown:
+                case ConsoleKey.DownArrow:
                     if (_select < 35 && _select < _maxselect - _page * 35 - 1)
                         _select++;
                     break;
@@ -48,13 +48,24 @@ namespace RashkouProject
                         World.TimeController.ExecuteUntil(World.Player);
                         _maxselect = World.Player.Inventory.Count;
                         _maxpage = World.Player.Inventory.Count / 35;
+                        _select = 0;
                     }
                     break;
                 case ConsoleKey.U:
                     if (World.Player.Inventory.Count > 0)
                     {
                         World.Player.Use(World.Player.Inventory[_select + _page * 35]);
+                        World.TimeController.ExecuteUntil(World.Player);
                         World.State = new GameMode();
+                    }
+                    break;
+                case ConsoleKey.W:
+                    if (World.Player.Inventory.Count > 0)
+                    {
+                        World.Player.Equip(World.Player.Inventory[_select + _page * 35]);
+                        _maxselect = World.Player.Inventory.Count;
+                        _maxpage = World.Player.Inventory.Count / 35;
+                        _select = 0;
                     }
                     break;
             }
@@ -68,8 +79,8 @@ namespace RashkouProject
                     GameMatrix.PrintLine("[.]" + World.Player.Inventory[y + _page * 35].Name , 1, y, White, Black);
                 else 
                     GameMatrix.PrintLine(" . " + World.Player.Inventory[y + _page * 35].Name , 1, y, White, Black);
-            GameMatrix.PrintLine("u - использовать, d - выбросить", 2, 36, White, Black);
-            GameMatrix.PrintLine("PageUp/Down для прокрутки страницы", 2, 38, White, Black);
+            GameMatrix.PrintLine("u - использовать, d - выбросить, w - экипировать", 2, 36, White, Black);
+            GameMatrix.PrintLine("Стрелки для прокрутки страницы", 2, 38, White, Black);
             GameMatrix.PrintLine("/ или * для выбора страницы", 2, 39, White, Black);
             GameMatrix.MatrixDrawChar();
 

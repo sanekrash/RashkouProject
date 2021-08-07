@@ -41,6 +41,9 @@ namespace RashkouProject
                 case ConsoleKey.I:
                     World.State = new InventoryMode();
                     break;
+                case ConsoleKey.W:
+                    World.State = new InventoryWearMode();
+                    break;
                 case ConsoleKey.G:
                     World.State = new PickupMode(World.Player.X,World.Player.Y);
                     break;
@@ -72,6 +75,10 @@ namespace RashkouProject
             GameMatrix.PrintLine("MP: " + World.Player.MP + "/" + World.Player.MaxMP, 40, 28, White, Black);
             GameMatrix.PrintLine("Level: " + World.Player.Level, 2, 30, White, Black);
             GameMatrix.PrintLine("EXP: " + World.Player.Exp, 40, 30, White, Black);
+            if (World.Player.EquipmentSlots[0].Slot != null)
+                GameMatrix.PrintLine("Оружие: " + World.Player.EquipmentSlots[0].Slot.Name, 2, 32, White, Black);
+            else
+                GameMatrix.PrintLine("Оружие: отсутствует", 2, 32, White, Black);
             GameMatrix.MatrixDrawChar();
             Console.Title = "Character: " + World.Player.Name + " HP: " + World.Player.HP + "/" + World.Player.MaxHP;
         }

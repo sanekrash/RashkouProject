@@ -4,10 +4,11 @@ namespace RashkouProject.Game.Entities
     {
         public TestItem()
         {
+            ItemType = ItemType.Food;
             Priority = 100;
             TimeCost = 100;
             Name = "Булочка";
-            Glyph = '%';
+            Glyph = ',';
             Consumable = true;
         }
 

@@ -9,6 +9,7 @@ namespace RashkouProject.Game.Entities
         Pants,
         Shoes,
         Bodywear,
-        Food
+        Food,
+        Key
     }
 }

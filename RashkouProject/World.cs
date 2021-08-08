@@ -28,7 +28,7 @@ namespace RashkouProject
         //       int playerX = 20, playerY = 20;
         public World()
         {
-            Player = new Human("Emilia", 2, 2);
+            Player = new Human("Edward Shadow", 2, 2);
             Player.Glyph = '@';
             Console.Title = "Character: " + Player.Name + " HP: " + Player.HP + "/" + Player.MaxHP;
             CurrentLocation = new Location(50, 50);
@@ -49,11 +49,25 @@ namespace RashkouProject
                 CurrentLocation.Spawn(new Bush(0, y));
                 CurrentLocation.Spawn(new Bush(49, y));
             }
-            for (int x = 25; x < 50; x++)
-            for (int y = 25; y < 50; y++)
-                CurrentLocation.Spawn(new Bush(x, y));
-            CurrentLocation.Spawn(new BearTrap(10, 10));
-            CurrentLocation.Spawn(new BearTrap(11, 11));
+
+            for (int y = 5; y < 20; y++)
+            {
+                CurrentLocation.Spawn(new Bush(5, y));
+                CurrentLocation.Spawn(new Bush(20, y));
+            }
+            for (int x = 5; x < 19; x++)
+            {
+                CurrentLocation.Spawn(new Bush(x, 5));
+                CurrentLocation.Spawn(new Bush(x, 20));
+            }
+            CurrentLocation.Spawn(new Door(19, 5, 100, true));
+            CurrentLocation.Spawn(new Door(19, 20, 228, true));
+
+            
+            CurrentLocation.Tiles[4, 9].AddEntity(new Key(100));
+            CurrentLocation.Tiles[4, 9].AddEntity(new Key(228));
+
+            
 
 
 
@@ -72,6 +86,10 @@ namespace RashkouProject
             CurrentLocation.Tiles[4, 9].AddEntity(new Gloves());
             CurrentLocation.Tiles[4, 9].AddEntity(new Bandana());
             CurrentLocation.Tiles[4, 9].AddEntity(new Shoes());
+            
+
+
+
 
             World.CurrentLocation.ViewMap(World.Player.X, World.Player.Y, 16);
             State = new GameMode();

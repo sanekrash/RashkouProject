@@ -15,13 +15,17 @@ namespace RashkouProject.Game.Entities
         public override void Use(CharEntity user)
         {
             if (user == World.Player)
-            World.State = new TileChoosingMode(this, user, 1);
+                World.State = new TileChoosingMode(this, user, 1);
         }
+
         public override void Use(CharEntity user, int x, int y)
         {
-            if (World.CurrentLocation.Tiles[x,y].HaveType(MapObjectType.Bush) != null)
-                World.CurrentLocation.Tiles[x,y].HaveType(MapObjectType.Bush).Destroy();
-            user.AddTimeLapse(TimeCost);
+            var entity = World.CurrentLocation.Tiles[x, y].HaveType(MapObjectType.Bush);
+            if (entity != null)
+            {
+                entity.Destroy();
+                user.AddTimeLapse(TimeCost);
+            }
         }
     }
 }

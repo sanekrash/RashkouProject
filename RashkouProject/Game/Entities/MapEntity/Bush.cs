@@ -12,7 +12,7 @@ namespace RashkouProject.Game.Entities
             Name = "Кустарник";
             ForGlyphColor = ConsoleColor.Green;
             Priority = 1;
-            Glyph = '$';
+            Glyph = '♤';
             Passability = false;
         }
 

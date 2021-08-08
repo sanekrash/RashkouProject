@@ -13,6 +13,7 @@ namespace RashkouProject.Game.Entities
         public int Level;
         public int Exp;
         public int Damage;
+        public int SightRadius = 16; 
         public List<ItemEntity> Inventory = new();
 
         public List<EquipmentSlot> EquipmentSlots = new()

@@ -50,10 +50,12 @@ namespace RashkouProject
                 case ConsoleKey.Enter:
                     Item.Use(User, X, Y);
                     World.State = new GameMode();
+                    World.CurrentLocation.ViewMap(World.Player.X, World.Player.Y, World.Player.SightRadius);
                     break;
                 case ConsoleKey.Escape:
                     World.State = new GameMode();
                     break;
+                
             }
         }
 

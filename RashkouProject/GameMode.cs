@@ -45,7 +45,7 @@ namespace RashkouProject
                     break;
 
             }
-            World.CurrentLocation.ViewMap(World.Player.X, World.Player.Y, 16);
+            World.CurrentLocation.ViewMap(World.Player.X, World.Player.Y, World.Player.SightRadius);
         }
 
         public override void Output()

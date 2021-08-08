@@ -5,6 +5,7 @@ namespace RashkouProject.Game.Entities
         Bush,
         Wall, 
         Floor,
-        Trap
+        Trap,
+        Door
     }
 }

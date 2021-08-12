@@ -45,28 +45,32 @@ namespace RashkouProject
                     if (World.Player.Inventory.Count > 0) 
                     { 
                         World.Player.Drop(World.Player.Inventory[_select + _page * 35]);
-                        _maxselect = World.Player.Inventory.Count;
-                        _maxpage = World.Player.Inventory.Count / 35;
-                        _select = 0;
+                        World.State = new InventoryMode();
+
                     }
                     break;
                 case ConsoleKey.U:
                     if (World.Player.Inventory.Count > 0)
                     {
                         World.Player.Use(World.Player.Inventory[_select + _page * 35]);
-                        _maxselect = World.Player.Inventory.Count;
-                        _maxpage = World.Player.Inventory.Count / 35;
-                        _select = 0;
+                        World.State = new InventoryMode();
+
                     }
                     break;
                 case ConsoleKey.W:
                     if (World.Player.Inventory.Count > 0)
                     {
                         World.Player.Equip(World.Player.Inventory[_select + _page * 35]);
-                        _maxselect = World.Player.Inventory.Count;
-                        _maxpage = World.Player.Inventory.Count / 35;
-                        _select = 0;
+                        World.State = new InventoryMode();
+
                     }
+                    break;
+                case ConsoleKey.T:
+                    if (World.Player.Inventory.Count > 0)
+                    {
+                        World.State = new TileChoosingMode(World.Player.Inventory[_select + _page * 35], World.Player, World.Player.SightRadius, Command.Throw);
+                    }
+
                     break;
             }
         }
@@ -79,7 +83,7 @@ namespace RashkouProject
                     GameMatrix.PrintLine("[.]" + World.Player.Inventory[y + _page * 35].Name , 1, y, White, Black);
                 else 
                     GameMatrix.PrintLine(" . " + World.Player.Inventory[y + _page * 35].Name , 1, y, White, Black);
-            GameMatrix.PrintLine("u - использовать, d - выбросить, w - экипировать", 2, 36, White, Black);
+            GameMatrix.PrintLine("u - использовать, d - выбросить, w - экипировать, t - метнуть", 2, 36, White, Black);
             GameMatrix.PrintLine("Стрелки для прокрутки страницы", 2, 38, White, Black);
             GameMatrix.PrintLine("/ или * для выбора страницы", 2, 39, White, Black);
             GameMatrix.MatrixDrawChar();

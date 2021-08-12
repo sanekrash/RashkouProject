@@ -3,7 +3,8 @@ namespace RashkouProject.Game.Entities
     public enum MapObjectType
     {
         Bush,
-        Wall, 
+        Wall,
+        Lattice,
         Floor,
         Trap,
         Door

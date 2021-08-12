@@ -13,7 +13,7 @@ namespace RashkouProject.Game.Entities
         public int Level;
         public int Exp;
         public int Damage;
-        public int SightRadius = 16; 
+        public int SightRadius = 16;
         public List<ItemEntity> Inventory = new();
 
         public List<EquipmentSlot> EquipmentSlots = new()
@@ -28,18 +28,8 @@ namespace RashkouProject.Game.Entities
         };
 
 
-        public BinaryHeap<Entity>.Node CurrentTimeLapse;
-
         public void Move(int x, int y)
         {
-            if (World.CurrentLocation.Tiles[X, Y].CharEntities.Count > 0)
-            {
-                foreach (var attackedEntity in World.CurrentLocation.Tiles[X + x, Y + y].CharList())
-                {
-                    attackedEntity.GetHit(new Attack(Damage));
-                }
-            }
-
             if (World.CurrentLocation.Tiles[X + x, Y + y].IsPassing())
             {
                 World.CurrentLocation.Tiles[X, Y].DeleteEntity(this);
@@ -60,8 +50,7 @@ namespace RashkouProject.Game.Entities
             }
 
             AddTimeLapse(100);
-
-}
+        }
 
         public void Wait()
         {
@@ -70,16 +59,17 @@ namespace RashkouProject.Game.Entities
 
         public void Pickup(ItemEntity entity)
         {
-            AddTimeLapse(100);
             Inventory.Add(entity);
             World.CurrentLocation.Tiles[X, Y].DeleteEntity(entity);
+            AddTimeLapse(100);
+
         }
 
         public void Drop(ItemEntity entity)
         {
-            AddTimeLapse(100);
             World.CurrentLocation.Tiles[X, Y].AddEntity(entity);
             Inventory.Remove(entity);
+            AddTimeLapse(100);
         }
 
         public void Use(ItemEntity entity)
@@ -87,6 +77,13 @@ namespace RashkouProject.Game.Entities
             entity.Use(this);
             if (entity.Consumable)
                 Inventory.Remove(entity);
+        }
+
+        public void Throw(ItemEntity entity, int x, int y)
+        {
+            World.CurrentLocation.Spawn(new ThrowedItem(X, Y, x, y, 25, 12, entity));
+            Inventory.Remove(entity);
+            AddTimeLapse(100);
         }
 
         public void Equip(ItemEntity entity)
@@ -136,14 +133,6 @@ namespace RashkouProject.Game.Entities
             {
                 Die();
             }
-        }
-
-        public void AddTimeLapse(int number)
-        {
-            CurrentTimeLapse = World.TimeController.AddTimeLapse(number, this);
-            if (this == World.Player)
-                World.TimeController.ExecuteUntil(World.Player);
-
         }
     }
 }

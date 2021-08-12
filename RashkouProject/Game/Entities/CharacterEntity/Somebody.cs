@@ -20,6 +20,7 @@ namespace RashkouProject.Game.Entities.CharacterEntity
             Exp = 0;
             Damage = 10;
             Passability = false;
+            Transparency = false;
         }
 
         public override void OnSpawn()

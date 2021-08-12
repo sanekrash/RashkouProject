@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using RashkouProject.Mathematics;
 
 namespace RashkouProject.Game
 {
@@ -11,7 +12,10 @@ namespace RashkouProject.Game
         public ConsoleColor BackGlyphColor = ConsoleColor.Black;
         public int X, Y;
         public bool Passability;
+        public bool Transparency = true;
         public string Name = "test";
+        public BinaryHeap<Entity>.Node CurrentTimeLapse;
+
 
         public virtual void OnSpawn()
         {
@@ -21,6 +25,12 @@ namespace RashkouProject.Game
         }
         public virtual void Act()
         {
+        }
+        public void AddTimeLapse(int number)
+        {
+            CurrentTimeLapse = World.TimeController.AddTimeLapse(number, this);
+            if (this == World.Player)
+                World.TimeController.ExecuteUntil(World.Player);
         }
     }
 }

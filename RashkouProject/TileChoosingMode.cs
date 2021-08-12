@@ -10,18 +10,20 @@ namespace RashkouProject
 {
     public class TileChoosingMode : World.IState
     {
-        private int X, Y;
-        private ItemEntity Item;
-        private CharEntity User;
-        private int ChooseRange;
+        private int _x, _y;
+        private ItemEntity _item;
+        private CharEntity _user;
+        private int _chooseRange;
+        private Command _currentCommand;
 
-        public TileChoosingMode(ItemEntity itemEntity, CharEntity entity, int range)
+        public TileChoosingMode(ItemEntity itemEntity, CharEntity entity, int range, Command command)
         {
-            Item = itemEntity;
-            User = entity;
-            X = User.X;
-            Y = User.Y;
-            ChooseRange = range;
+            _item = itemEntity;
+            _user = entity;
+            _x = _user.X;
+            _y = _user.Y;
+            _chooseRange = range;
+            _currentCommand = command;
         }
 
 
@@ -30,28 +32,39 @@ namespace RashkouProject
             switch (key.Key)
             {
                 case ConsoleKey.UpArrow:
-                    if (Y > 0 && GetRange(X, User.X, Y-1, User.Y) <= Math.Pow(ChooseRange, 2))
-                        Y--;
+                    if (_y > 0 && GetRange(_x, _user.X, _y-1, _user.Y) <= Math.Pow(_chooseRange, 2))
+                        _y--;
                     break;
                 case ConsoleKey.LeftArrow:
-                    if (X > 0 && GetRange(X-1, User.X, Y, User.Y) <= Math.Pow(ChooseRange, 2))
-                        X--;
+                    if (_x > 0 && GetRange(_x-1, _user.X, _y, _user.Y) <= Math.Pow(_chooseRange, 2))
+                        _x--;
                     break;
                 case ConsoleKey.RightArrow:
-                    if (X < World.CurrentLocation.Tiles.GetLength(0) - 1
-                        && GetRange(X+1, User.X, Y, User.Y) <= Math.Pow(ChooseRange, 2))
-                        X++;
+                    if (_x < World.CurrentLocation.Tiles.GetLength(0) - 1
+                        && GetRange(_x+1, _user.X, _y, _user.Y) <= Math.Pow(_chooseRange, 2))
+                        _x++;
                     break;
                 case ConsoleKey.DownArrow:
-                    if (Y < World.CurrentLocation.Tiles.GetLength(1) - 1
-                        && GetRange(X, User.X, Y+1, User.Y) <= Math.Pow(ChooseRange, 2))
-                        Y++;
+                    if (_y < World.CurrentLocation.Tiles.GetLength(1) - 1
+                        && GetRange(_x, _user.X, _y+1, _user.Y) <= Math.Pow(_chooseRange, 2))
+                        _y++;
                     break;
                 case ConsoleKey.Enter:
-                    Item.Use(User, X, Y);
-                    World.State = new GameMode();
-                    World.CurrentLocation.ViewMap(World.Player.X, World.Player.Y, World.Player.SightRadius);
+                    switch (_currentCommand)
+                    {
+                        case Command.Use:
+                            _item.Use(_user, _x, _y);
+                            World.State = new GameMode();
+                            World.CurrentLocation.ViewMap(World.Player.X, World.Player.Y, World.Player.SightRadius);
+                            break;
+                        case Command.Throw:
+                            _user.Throw(_item, _x, _y);
+                            World.State = new GameMode();
+                            World.CurrentLocation.ViewMap(World.Player.X, World.Player.Y, World.Player.SightRadius);
+                            break;
+                    }
                     break;
+
                 case ConsoleKey.Escape:
                     World.State = new GameMode();
                     break;
@@ -66,7 +79,7 @@ namespace RashkouProject
         public override void Output()
         {
             GameMatrix = new Matrix(79, 40, new Draw.Char(' ', Black, Black));
-            GameMatrix.Print(World.CurrentLocation.Camera(X, Y), 0, 0);
+            GameMatrix.Print(World.CurrentLocation.Camera(_x, _y), 0, 0);
             GameMatrix.Print(new Draw.Char('X', Red, Black), 39, 12);
             for (int x = 0; x < 79; x++)
             {
@@ -74,14 +87,20 @@ namespace RashkouProject
                 GameMatrix[x, 26] = new Draw.Char('≡', White, Black);
             }
 
-            if (World.CurrentLocation.VisionMap[X, Y])
-                GameMatrix.PrintLine(World.CurrentLocation.Tiles[X, Y].PriorityEntity().Name,
-                    40 - World.CurrentLocation.Tiles[X, Y].PriorityEntity().Name.Length / 2, 25, Green, Black);
+            if (World.CurrentLocation.VisionMap[_x, _y])
+                GameMatrix.PrintLine(World.CurrentLocation.Tiles[_x, _y].PriorityEntity().Name,
+                    40 - World.CurrentLocation.Tiles[_x, _y].PriorityEntity().Name.Length / 2, 25, Green, Black);
             else
                 GameMatrix.PrintLine("Вы не видите эту область", 40 - 24 / 2, 25, Green, Black);
 
             GameMatrix.PrintLine("Enter - для выбора области", 2, 39, White, Black);
             GameMatrix.MatrixDrawChar();
         }
+    }
+
+    public enum Command
+    {
+        Throw,
+        Use
     }
 }

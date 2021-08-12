@@ -1,3 +1,5 @@
+using System;
+
 namespace RashkouProject.Game.Entities
 {
     public class Floor : MapEntity
@@ -7,6 +9,7 @@ namespace RashkouProject.Game.Entities
             X = x;
             Y = y;
             Type = MapObjectType.Floor;
+            BackGlyphColor = ConsoleColor.DarkGray;
             Name = "Пол";
             Priority = 0;
             Glyph = '.';

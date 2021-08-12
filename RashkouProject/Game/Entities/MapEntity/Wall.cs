@@ -9,8 +9,9 @@ namespace RashkouProject.Game.Entities
             Type = MapObjectType.Wall;
             Name = "Стена";
             Priority = 1;
-            Glyph = '#';
+            Glyph = '■';
             Passability = false;
+            Transparency = false;
         }
     }
 }

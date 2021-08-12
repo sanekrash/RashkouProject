@@ -34,7 +34,7 @@ namespace RashkouProject
             CurrentLocation = new Location(50, 50);
             for (int x = 0; x < 50; x++)
             for (int y = 0; y < 50; y++)
-                CurrentLocation.Spawn(new Floor(x, y));
+                CurrentLocation.Spawn(new Grass(x, y));
 
 
             for (int x = 0; x < 50; x++)
@@ -52,8 +52,8 @@ namespace RashkouProject
 
             for (int y = 5; y < 20; y++)
             {
-                CurrentLocation.Spawn(new Bush(5, y));
-                CurrentLocation.Spawn(new Bush(20, y));
+                CurrentLocation.Spawn(new Lattice(5, y));
+                CurrentLocation.Spawn(new Lattice(20, y));
             }
             for (int x = 5; x < 19; x++)
             {
@@ -73,8 +73,6 @@ namespace RashkouProject
 
             CurrentLocation.Spawn(Player);
             CurrentLocation.Spawn(new Somebody("loh", 2, 1));
-
-
 
 
 

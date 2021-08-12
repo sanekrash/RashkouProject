@@ -13,6 +13,7 @@ namespace RashkouProject.Game
         public Tile[,] Tiles;
         public bool[,] VisionMap;
         public List<CharEntity> CharEntities = new List<CharEntity>();
+        public List<BulletEntity> BulletEntities = new List<BulletEntity>();
         public List<MapEntity> MapEntities = new List<MapEntity>();
 
         public int LenghtX, LenghtY;
@@ -42,6 +43,12 @@ namespace RashkouProject.Game
             Tiles[e.X, e.Y].AddEntity(e);
             e.OnSpawn();
         }
+        public void Spawn(BulletEntity e)
+        {
+            BulletEntities.Add(e);
+            Tiles[e.X, e.Y].AddEntity(e);
+            e.OnSpawn();
+        }
 
         public void Despawn(CharEntity e)
         {
@@ -52,6 +59,12 @@ namespace RashkouProject.Game
         public void Despawn(MapEntity e)
         {
             MapEntities.Remove(e);
+            Tiles[e.X, e.Y].DeleteEntity(e);
+            e.OnDespawn();
+        }
+        public void Despawn(BulletEntity e)
+        {
+            BulletEntities.Remove(e);
             Tiles[e.X, e.Y].DeleteEntity(e);
             e.OnDespawn();
         }
@@ -70,7 +83,7 @@ namespace RashkouProject.Game
                 if (0 > oy || oy > World.CurrentLocation.Tiles.GetLength(1))
                     return;
                 VisionMap[(int) ox, (int) oy] = true;
-                if (Tiles[(int) ox,(int) oy].IsPassing() == false)
+                if (Tiles[(int) ox,(int) oy].IsTransparent() == false)
                     return;
                 ox = ox + vectorX;
                 oy = oy + vectorY;

@@ -11,6 +11,7 @@ namespace RashkouProject.Game
         public List<MapEntity> Mapentities = new List<MapEntity>();
         public List<CharEntity> CharEntities = new List<CharEntity>();
         public List<ItemEntity> ItemEntities = new List<ItemEntity>();
+        public List<BulletEntity> BulletEntities = new List<BulletEntity>();
 
 
         public void AddEntity(MapEntity entity)
@@ -27,6 +28,10 @@ namespace RashkouProject.Game
         {
             ItemEntities.Add(entity);
         }
+        public void AddEntity(BulletEntity entity)
+        {
+            BulletEntities.Add(entity);
+        }
 
         public void DeleteEntity(CharEntity entity)
         {
@@ -41,6 +46,10 @@ namespace RashkouProject.Game
         {
             Mapentities.Remove(entity);
         }
+        public void DeleteEntity(BulletEntity entity)
+        {
+            BulletEntities.Remove(entity);
+        }
 
         public bool IsPassing()
         {
@@ -50,7 +59,16 @@ namespace RashkouProject.Game
             foreach (var charEntity in CharEntities)
                 if (charEntity.Passability == false)
                     return charEntity.Passability;
-
+            return true;
+        }
+        public bool IsTransparent()
+        {
+            foreach (var mapEntity in Mapentities)
+                if (mapEntity.Transparency == false)
+                    return mapEntity.Transparency;
+            foreach (var charEntity in CharEntities)
+                if (charEntity.Transparency == false)
+                    return charEntity.Transparency;
             return true;
         }
 
@@ -75,7 +93,7 @@ namespace RashkouProject.Game
 
         public Char PrintTile()
         {
-            return new(PriorityEntity().Glyph, PriorityEntity().ForGlyphColor, PriorityEntity().BackGlyphColor);
+            return new(PriorityEntity().Glyph, PriorityEntity().ForGlyphColor, HaveType(MapObjectType.Floor).BackGlyphColor);
         }
 
         public List<Entity> ReturnEntities()
@@ -96,7 +114,10 @@ namespace RashkouProject.Game
             {
                 entities.Add(charentity);
             }
-
+            foreach (var bulletEntity in BulletEntities)
+            {
+                entities.Add(bulletEntity);
+            }
             return entities;
         }
 

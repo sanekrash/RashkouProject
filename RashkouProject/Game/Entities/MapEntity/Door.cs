@@ -7,12 +7,12 @@ namespace RashkouProject.Game.Entities
     public class Door : MapEntity
     {
         public int KeyID;
-        public bool Closed;
+        public bool Locked;
 
-        public Door(int x, int y, int id, bool closed)
+        public Door(int x, int y, int id, bool locked)
         {
             KeyID = id;
-            Closed = closed;
+            Locked = locked;
             X = x;
             Y = y;
             Type = MapObjectType.Door;
@@ -21,19 +21,23 @@ namespace RashkouProject.Game.Entities
             Priority = 1;
             Glyph = '▮';
             Passability = false;
+            Transparency = false;
         }
         public void OpenKey()
         {
             Glyph = '▯';
-            Closed = false;
+            Locked = false;
             Passability = true;
+            Transparency = true;
         }
 
         public void CloseKey()
         {
             Glyph = '▮';
-            Closed = true;
+            Locked = true;
             Passability = false;
+            Transparency = false;
+
         }
     }
 }

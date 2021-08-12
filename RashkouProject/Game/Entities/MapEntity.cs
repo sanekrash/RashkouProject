@@ -4,10 +4,8 @@ namespace RashkouProject.Game.Entities
     {
         public MapObjectType Type;
         
-        public void Destroy()
-        {
-            World.CurrentLocation.Despawn(this);
-        }
+        public void Destroy() => World.CurrentLocation.Despawn(this);
+
 
         public virtual void OnStep(CharEntity entity)
         {

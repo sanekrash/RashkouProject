@@ -72,7 +72,13 @@ namespace RashkouProject
                 case ConsoleKey.T:
                     if (World.Player.Inventory.Count > 0)
                     {
-                        World.State = new TileChoosingMode(World.Player.Inventory[_select + _page * 35], World.Player, World.Player.SightRadius, Command.Throw);
+                        World.State = new TileChoosingMode(World.Player.SightRadius,
+                            (int x, int y) =>
+                            {
+                                World.Player.Throw(World.Player.Inventory[_select + _page * 35], x, y);
+                                World.State = new GameMode();
+                            }
+                            );
                     }
 
                     break;

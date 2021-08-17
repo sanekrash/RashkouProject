@@ -19,18 +19,22 @@ public class Key : ItemEntity
     public override void Use(CharEntity user)
     {
         if (user == World.Player)
-            World.State = new TileChoosingMode(this, user, 1, Command.Use);
+            World.State = new TileChoosingMode( 1, (int x, int y) =>
+            {
+                this.Use(user, x, y);
+                World.State = new GameMode();
+            });
     }
 
     public override void Use(CharEntity user, int x, int y)
     {
-        Door entity = (Door) World.CurrentLocation.Tiles[x, y].HaveType(MapObjectType.Door);
-            if (entity != null)
-                if (KeyID == entity.KeyID)
-                    if (entity.Locked)
-                        entity.OpenKey();
-                    else
-                        entity.LockKey();
-            user.AddTimeLapse(TimeCost);
+        Door entity = (Door)World.CurrentLocation.Tiles[x, y].HaveType(MapObjectType.Door);
+        if (entity != null)
+            if (KeyID == entity.KeyID)
+                if (entity.Locked)
+                    entity.OpenKey();
+                else
+                    entity.LockKey();
+        user.AddTimeLapse(TimeCost);
     }
 }

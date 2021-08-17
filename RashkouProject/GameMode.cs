@@ -24,12 +24,12 @@ namespace RashkouProject
                 case ConsoleKey.DownArrow:
                     World.Player.Move(0, 1);
                     break;
-  /*              case ConsoleKey.:
-                    World.Player.Wait();
-                    World.TimeController.Execute();
-                    break;*/
+                /*              case ConsoleKey.:
+                                  World.Player.Wait();
+                                  World.TimeController.Execute();
+                                  break;*/
                 case ConsoleKey.L:
-                    World.State = new LookMode(World.Player.X,World.Player.Y);
+                    World.State = new LookMode(World.Player.X, World.Player.Y);
                     break;
                 case ConsoleKey.C:
                     World.State = new CommandMode();
@@ -41,13 +41,13 @@ namespace RashkouProject
                     World.State = new InventoryWearMode();
                     break;
                 case ConsoleKey.G:
-                    World.State = new PickupMode(World.Player.X,World.Player.Y);
+                    World.State = new PickupMode(World.Player.X, World.Player.Y);
                     break;
                 case ConsoleKey.U:
-                    World.State = new TileChoosingMode(World.Player, 1, Command.Activate);
+                    World.State = new TileChoosingMode(World.Player, 1, (int x, int y) => { });
                     break;
-
             }
+
             World.CurrentLocation.ViewMap(World.Player.X, World.Player.Y, World.Player.SightRadius);
         }
 
@@ -63,12 +63,13 @@ namespace RashkouProject
                     GameMatrix[x, y] = new Char(' ', White, Black);
                 }
             }
-            
+
             for (int x = 0; x < 79; x++)
             {
                 GameMatrix[x, 24] = new Char('≡', White, Black);
                 GameMatrix[x, 26] = new Char('≡', White, Black);
             }
+
             GameMatrix.PrintLine(World.Player.Name, 40 - World.Player.Name.Length / 2, 25, Green, Black);
             GameMatrix.PrintLine("HP: " + World.Player.HP + "/" + World.Player.MaxHP, 2, 28, White, Black);
             GameMatrix.PrintLine("MP: " + World.Player.MP + "/" + World.Player.MaxMP, 40, 28, White, Black);

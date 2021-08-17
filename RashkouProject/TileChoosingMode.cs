@@ -19,25 +19,26 @@ namespace RashkouProject
         private int _select = 0, _page = 0, _maxpage = 0, _maxselect = 0;
         private List<MapEntity> _selectedTileEntities;
 
-        public TileChoosingMode(CharEntity entity, int range, Command command)
+        Action<int, int> Activate;
+        
+        public TileChoosingMode(CharEntity entity, int range, Action<int,int> action)
         {
-            Init(entity, range, command);
+            Init(entity, range);
             LookTile();
         }
 
-        public TileChoosingMode(ItemEntity itemEntity, CharEntity entity, int range, Command command)
+        public TileChoosingMode(int range, Action<int,int> action)
         {
-            _item = itemEntity;
-            Init(entity, range, command);
+            Init(World.Player, range);
+            Activate = action;
         }
 
-        public void Init(CharEntity entity, int range, Command command)
+        public void Init(CharEntity entity, int range)
         {
             _user = entity;
             _x = _user.X;
             _y = _user.Y;
             _chooseRange = range;
-            _currentCommand = command;
         }
 
         public void LookTile()
@@ -94,23 +95,17 @@ namespace RashkouProject
                         _select++;
                     break;
                 case ConsoleKey.Enter:
+                    Activate(_x,_y);
+                    /*
                     switch (_currentCommand)
                     {
-                        case Command.Use:
-                            _item.Use(_user, _x, _y);
-                            World.State = new GameMode();
-                            World.CurrentLocation.ViewMap(World.Player.X, World.Player.Y, World.Player.SightRadius);
-                            break;
-                        case Command.Throw:
-                            _user.Throw(_item, _x, _y);
-                            World.State = new GameMode();
-                            World.CurrentLocation.ViewMap(World.Player.X, World.Player.Y, World.Player.SightRadius);
-                            break;
                         case Command.Activate:
                             World.CurrentLocation.Tiles[_x, _y].Mapentities[_select + _page * 10].Activate(World.Player);
                             LookTile();
                             break;
-                    }
+                        default:
+                            break;
+                    } */
 
                     break;
 

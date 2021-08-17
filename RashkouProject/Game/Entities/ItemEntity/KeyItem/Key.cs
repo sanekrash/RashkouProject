@@ -30,7 +30,7 @@ public class Key : ItemEntity
                     if (entity.Locked)
                         entity.OpenKey();
                     else
-                        entity.CloseKey();
+                        entity.LockKey();
             user.AddTimeLapse(TimeCost);
     }
 }

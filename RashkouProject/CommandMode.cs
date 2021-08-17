@@ -28,7 +28,6 @@ namespace RashkouProject
                     break;
                 case "wait":
                     World.Player.Wait();
-                    World.TimeController.ExecuteUntil(World.Player);
                     World.State = new GameMode();
                     break;
                 default:

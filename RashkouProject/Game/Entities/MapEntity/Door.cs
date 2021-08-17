@@ -3,7 +3,6 @@ using static System.ConsoleColor;
 
 namespace RashkouProject.Game.Entities
 {
-
     public class Door : MapEntity
     {
         public int KeyID;
@@ -20,24 +19,36 @@ namespace RashkouProject.Game.Entities
             ForGlyphColor = White;
             Priority = 1;
             Glyph = '▮';
-            Passability = false;
-            Transparency = false;
-        }
-        public void OpenKey()
-        {
-            Glyph = '▯';
-            Locked = false;
-            Passability = true;
-            Transparency = true;
-        }
-
-        public void CloseKey()
-        {
-            Glyph = '▮';
             Locked = true;
             Passability = false;
             Transparency = false;
+        }
 
+        public override void Activate(CharEntity entity)
+        {
+            if (!Locked)
+                if (Passability)
+                {
+                    Passability = false;
+                    Glyph = '▮';
+                }
+                else
+                {
+                    Passability = true;
+                    Glyph = '▯';
+                }
+        }
+
+        public void OpenKey()
+        {
+            if (!Passability)
+                Locked = false;
+        }
+
+        public void LockKey()
+        {
+            if (!Passability)
+                Locked = true;
         }
     }
 }

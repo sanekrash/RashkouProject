@@ -43,6 +43,9 @@ namespace RashkouProject
                 case ConsoleKey.G:
                     World.State = new PickupMode(World.Player.X,World.Player.Y);
                     break;
+                case ConsoleKey.U:
+                    World.State = new TileChoosingMode(World.Player, 1, Command.Activate);
+                    break;
 
             }
             World.CurrentLocation.ViewMap(World.Player.X, World.Player.Y, World.Player.SightRadius);

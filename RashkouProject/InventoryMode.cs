@@ -11,6 +11,11 @@ namespace RashkouProject
 
         public InventoryMode()
         {
+            Refresh();
+        }
+
+        public void Refresh()
+        {
             _maxpage = World.Player.Inventory.Count / 35;
             _maxselect = World.Player.Inventory.Count;
             _select = 0; _page = 0;
@@ -45,15 +50,14 @@ namespace RashkouProject
                     if (World.Player.Inventory.Count > 0) 
                     { 
                         World.Player.Drop(World.Player.Inventory[_select + _page * 35]);
-                        World.State = new InventoryMode();
-
+                        Refresh();
                     }
                     break;
                 case ConsoleKey.U:
                     if (World.Player.Inventory.Count > 0)
                     {
                         World.Player.Use(World.Player.Inventory[_select + _page * 35]);
-                        World.State = new InventoryMode();
+                        Refresh();
 
                     }
                     break;
@@ -61,7 +65,7 @@ namespace RashkouProject
                     if (World.Player.Inventory.Count > 0)
                     {
                         World.Player.Equip(World.Player.Inventory[_select + _page * 35]);
-                        World.State = new InventoryMode();
+                        Refresh();
 
                     }
                     break;

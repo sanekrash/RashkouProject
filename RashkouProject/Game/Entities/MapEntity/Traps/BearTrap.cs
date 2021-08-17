@@ -14,7 +14,7 @@ namespace RashkouProject.Game.Entities
             Type = MapObjectType.Trap;
             Name = "Медвежий капкан";
             ForGlyphColor = White;
-            Priority = 0;
+            Priority = 100;
             Glyph = '^';
             Passability = true;
         }

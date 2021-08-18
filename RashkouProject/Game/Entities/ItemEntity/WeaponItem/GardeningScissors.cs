@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace RashkouProject.Game.Entities
 {
     public class GardeningScissors : ItemEntity
@@ -20,6 +22,10 @@ namespace RashkouProject.Game.Entities
                     {
                         this.Use(user, x, y); 
                         World.State = new GameMode();
+                    },
+                    (x, y) =>
+                    {
+                        return new List<Entity>(World.CurrentLocation.Tiles[x, y].Mapentities);
                     });
         }
 

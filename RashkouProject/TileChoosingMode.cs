@@ -11,26 +11,32 @@ namespace RashkouProject
 {
     public class TileChoosingMode : World.IState
     {
+        private const int PageElements = 10;
         private int _x, _y;
         private ItemEntity _item;
         private CharEntity _user;
         private int _chooseRange;
-        private Command _currentCommand;
         private int _select = 0, _page = 0, _maxpage = 0, _maxselect = 0;
-        private List<MapEntity> _selectedTileEntities;
+        private List<Entity> _selectedTileEntities;
 
-        Action<int, int> Activate;
-        
-        public TileChoosingMode(CharEntity entity, int range, Action<int,int> action)
+        private readonly Action<int, int> _activate;
+        private readonly Action<Entity> _objectActivate;
+        private Func<int, int, List<Entity>> _entityList;
+
+        public TileChoosingMode(int range, Action<Entity> action, Func<int, int, List<Entity>> entityList)
         {
-            Init(entity, range);
+            Init(World.Player, range);
+            _objectActivate = action;
+            _entityList = entityList;
             LookTile();
         }
 
-        public TileChoosingMode(int range, Action<int,int> action)
+        public TileChoosingMode(int range, Action<int, int> action, Func<int, int, List<Entity>> entityList)
         {
             Init(World.Player, range);
-            Activate = action;
+            _activate = action;
+            _entityList = entityList;
+            LookTile();
         }
 
         public void Init(CharEntity entity, int range)
@@ -43,8 +49,8 @@ namespace RashkouProject
 
         public void LookTile()
         {
-            _selectedTileEntities = World.CurrentLocation.Tiles[_x, _y].Mapentities;
-            _maxpage = _selectedTileEntities.Count / 10;
+            _selectedTileEntities = _entityList(_x,_y);
+            _maxpage = _selectedTileEntities.Count / PageElements;
             _maxselect = _selectedTileEntities.Count;
             _select = 0;
             _page = 0;
@@ -91,22 +97,15 @@ namespace RashkouProject
                         _select--;
                     break;
                 case ConsoleKey.PageDown:
-                    if (_select < 9 && _select < _maxselect - _page * 10 - 1)
+                    if (_select < 9 && _select < _maxselect - _page * PageElements - 1)
                         _select++;
                     break;
                 case ConsoleKey.Enter:
-                    Activate(_x,_y);
-                    /*
-                    switch (_currentCommand)
-                    {
-                        case Command.Activate:
-                            World.CurrentLocation.Tiles[_x, _y].Mapentities[_select + _page * 10].Activate(World.Player);
-                            LookTile();
-                            break;
-                        default:
-                            break;
-                    } */
-
+                    if (_activate != null)
+                        _activate(_x, _y);
+                    if (_objectActivate != null)
+                        _objectActivate(_selectedTileEntities[_select + _page * PageElements]);
+                    LookTile();
                     break;
 
                 case ConsoleKey.Escape:
@@ -136,12 +135,14 @@ namespace RashkouProject
                     40 - World.CurrentLocation.Tiles[_x, _y].PriorityEntity().Name.Length / 2, 25, Green, Black);
             else
                 GameMatrix.PrintLine("Вы не видите эту область", 40 - 24 / 2, 25, Green, Black);
-            if (World.CurrentLocation.VisionMap[_x,_y])
-                for (int y = 0; y < 10 && y < _maxselect - _page * 10; y++)
+            if (World.CurrentLocation.VisionMap[_x, _y])
+                for (int y = 0; y < 10 && y < _maxselect - _page * PageElements; y++)
                     if (y == _select)
-                        GameMatrix.PrintLine("[.]" + _selectedTileEntities[y + _page * 10].Name, 1, y + 27, White, Black);
+                        GameMatrix.PrintLine("[.]" + _selectedTileEntities[y + _page * PageElements].Name, 1, y + 27,
+                            White, Black);
                     else
-                        GameMatrix.PrintLine(" . " + _selectedTileEntities[y + _page * 10].Name, 1, y + 27, White, Black);
+                        GameMatrix.PrintLine(" . " + _selectedTileEntities[y + _page * PageElements].Name, 1, y + 27,
+                            White, Black);
 
             GameMatrix.PrintLine("Enter - для выбора области", 2, 37, White, Black);
             GameMatrix.PrintLine("PageUp/Down для прокрутки страницы", 2, 38, White, Black);
@@ -150,11 +151,5 @@ namespace RashkouProject
             GameMatrix.MatrixDrawChar();
         }
     }
-
-    public enum Command
-    {
-        Throw,
-        Use,
-        Activate
-    }
+    
 }

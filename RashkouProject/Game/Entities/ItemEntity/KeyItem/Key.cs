@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using RashkouProject;
+using RashkouProject.Game;
 using RashkouProject.Game.Entities;
 
 public class Key : ItemEntity
@@ -23,6 +25,9 @@ public class Key : ItemEntity
             {
                 this.Use(user, x, y);
                 World.State = new GameMode();
+            },(x, y) =>
+            {
+                return new List<Entity>(World.CurrentLocation.Tiles[x, y].Mapentities);
             });
     }
 

@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Reflection.Metadata;
 using RashkouProject.Draw;
 using RashkouProject.Game;
+using RashkouProject.Game.Entities;
 using static System.ConsoleColor;
 using Char = RashkouProject.Draw.Char;
 
@@ -29,7 +32,13 @@ namespace RashkouProject
                                   World.TimeController.Execute();
                                   break;*/
                 case ConsoleKey.L:
-                    World.State = new LookMode(World.Player.X, World.Player.Y);
+                    World.State = new TileChoosingMode(World.Player.SightRadius, (Entity e) =>
+                        {
+                        },
+                        ((x, y) =>
+                        {
+                            return new List<Entity>(World.CurrentLocation.Tiles[x, y].ReturnEntities());
+                        }));
                     break;
                 case ConsoleKey.C:
                     World.State = new CommandMode();
@@ -41,10 +50,25 @@ namespace RashkouProject
                     World.State = new InventoryWearMode();
                     break;
                 case ConsoleKey.G:
-                    World.State = new PickupMode(World.Player.X, World.Player.Y);
+                    World.State = new TileChoosingMode(0,
+                        (e) =>
+                        {
+                            World.Player.Pickup((ItemEntity)e);
+                        },
+                        (x, y) => { return new List<Entity>(World.CurrentLocation.Tiles[x, y].ItemEntities); });
                     break;
                 case ConsoleKey.U:
-                    World.State = new TileChoosingMode(World.Player, 1, (int x, int y) => { });
+
+                    World.State = new TileChoosingMode(1, (Entity e) =>
+                        {
+                            var mapEntity = (MapEntity)e;
+                            mapEntity.Activate(World.Player);
+                            World.State = new GameMode();
+                        },
+                        ((x, y) =>
+                        {
+                            return new List<Entity>(World.CurrentLocation.Tiles[x, y].Mapentities);
+                        }));
                     break;
             }
 

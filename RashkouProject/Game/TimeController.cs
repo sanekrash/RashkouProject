@@ -6,7 +6,7 @@ namespace RashkouProject.Game
 {
     public class TimeController
     {
-        public BinaryHeap<Entity> TimeLapseList = new();
+        public BinaryHeap<Entity> TimeLapseList = new BinaryHeap<Entity>();
         public static int Time = 0;
 
         public BinaryHeap<Entity>.Node AddTimeLapse(int time, Entity entity)

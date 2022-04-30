@@ -28,7 +28,7 @@ namespace RashkouProject
         //       int playerX = 20, playerY = 20;
         public World()
         {
-            Player = new Human("Edward Shadow", 2, 2);
+            Player = new Human("Mailine Vestocka", 2, 2);
             Player.Glyph = '@';
             Console.Title = "Character: " + Player.Name + " HP: " + Player.HP + "/" + Player.MaxHP;
             CurrentLocation = new Location(50, 50);

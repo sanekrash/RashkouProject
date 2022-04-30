@@ -18,7 +18,7 @@ namespace RashkouProject.Game.Entities
             Name = "Дверь" + id;
             ForGlyphColor = White;
             Priority = 1;
-            Glyph = '▮';
+            Glyph = '[';
             Locked = true;
             Passability = false;
             Transparency = false;

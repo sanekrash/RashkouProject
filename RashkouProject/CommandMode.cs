@@ -75,8 +75,8 @@ namespace RashkouProject
 
             for (int x = 0; x < 79; x++)
             {
-                GameMatrix[x, 24] = new Char('≡', White, Black);
-                GameMatrix[x, 26] = new Char('≡', White, Black);
+                GameMatrix[x, 24] = new Char('-', White, Black);
+                GameMatrix[x, 26] = new Char('-', White, Black);
             }
 
             GameMatrix.PrintLine(">" + _command, 0, 25, Green, Black);

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata;
 using RashkouProject.Draw;
 using RashkouProject.Game;
 using RashkouProject.Game.Entities;
@@ -90,8 +89,8 @@ namespace RashkouProject
 
             for (int x = 0; x < 79; x++)
             {
-                GameMatrix[x, 24] = new Char('≡', White, Black);
-                GameMatrix[x, 26] = new Char('≡', White, Black);
+                GameMatrix[x, 24] = new Char('-', White, Black);
+                GameMatrix[x, 26] = new Char('-', White, Black);
             }
 
             GameMatrix.PrintLine(World.Player.Name, 40 - World.Player.Name.Length / 2, 25, Green, Black);

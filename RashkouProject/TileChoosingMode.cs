@@ -126,8 +126,8 @@ namespace RashkouProject
             GameMatrix.Print(new Draw.Char('X', Red, Black), 39, 12);
             for (int x = 0; x < 79; x++)
             {
-                GameMatrix[x, 24] = new Draw.Char('≡', White, Black);
-                GameMatrix[x, 26] = new Draw.Char('≡', White, Black);
+                GameMatrix[x, 24] = new Draw.Char('-', White, Black);
+                GameMatrix[x, 26] = new Draw.Char('-', White, Black);
             }
 
             if (World.CurrentLocation.VisionMap[_x, _y])

@@ -93,7 +93,7 @@ namespace RashkouProject.Game
 
         public Char PrintTile()
         {
-            return new(PriorityEntity().Glyph, PriorityEntity().ForGlyphColor, HaveType(MapObjectType.Floor).BackGlyphColor);
+            return new Char(PriorityEntity().Glyph, PriorityEntity().ForGlyphColor, HaveType(MapObjectType.Floor).BackGlyphColor);
         }
 
         public List<Entity> ReturnEntities()

@@ -49,7 +49,7 @@ namespace RashkouProject
 
         public void LookTile()
         {
-            _selectedTileEntities = _entityList(_x,_y);
+            _selectedTileEntities = _entityList(_x, _y);
             _maxpage = _selectedTileEntities.Count / PageElements;
             _maxselect = _selectedTileEntities.Count;
             _select = 0;
@@ -131,15 +131,21 @@ namespace RashkouProject
             }
 
             if (World.CurrentLocation.VisionMap[_x, _y])
+            {
                 GameMatrix.PrintLine(World.CurrentLocation.Tiles[_x, _y].PriorityEntity().Name,
                     40 - World.CurrentLocation.Tiles[_x, _y].PriorityEntity().Name.Length / 2, 25, Green, Black);
+            }
             else
                 GameMatrix.PrintLine("Вы не видите эту область", 40 - 24 / 2, 25, Green, Black);
+
             if (World.CurrentLocation.VisionMap[_x, _y])
                 for (int y = 0; y < 10 && y < _maxselect - _page * PageElements; y++)
                     if (y == _select)
+                    {
                         GameMatrix.PrintLine("[.]" + _selectedTileEntities[y + _page * PageElements].Name, 1, y + 27,
                             White, Black);
+                        GameMatrix.Print(_selectedTileEntities[y + _page * PageElements].ShortDescription, 42, 27);
+                    }
                     else
                         GameMatrix.PrintLine(" . " + _selectedTileEntities[y + _page * PageElements].Name, 1, y + 27,
                             White, Black);
@@ -151,5 +157,4 @@ namespace RashkouProject
             GameMatrix.MatrixDrawChar();
         }
     }
-    
 }

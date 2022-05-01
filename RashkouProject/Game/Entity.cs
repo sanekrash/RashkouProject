@@ -1,6 +1,9 @@
 using System;
 using System.Drawing;
+using RashkouProject.Draw;
 using RashkouProject.Mathematics;
+using static System.ConsoleColor;
+using Char = RashkouProject.Draw.Char;
 
 namespace RashkouProject.Game
 {
@@ -13,7 +16,8 @@ namespace RashkouProject.Game
         public int X, Y;
         public bool Passability;
         public bool Transparency = true;
-        public string Name = "test";
+        public string Name = "blank";
+        public Matrix ShortDescription = new Matrix(39, 13, new Char(' ', Black, Black));
         public BinaryHeap<Entity>.Node CurrentTimeLapse;
 
 

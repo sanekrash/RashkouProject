@@ -1,9 +1,7 @@
 ﻿using System;
 using RashkouProject.Core;
-using System.Threading;
 using static System.ConsoleColor;
-using RashkouProject.Draw;
-using Char = RashkouProject.Draw.Char;
+
 
 namespace RashkouProject
 {
@@ -11,6 +9,7 @@ namespace RashkouProject
     {
         public static void Main(string[] args)
         {
+            Console.SetWindowSize(79, 41);
             _.State = new Menu();
             _.State.Output();
             Console.BackgroundColor = Black;

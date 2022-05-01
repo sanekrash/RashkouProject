@@ -1,4 +1,7 @@
+using static System.ConsoleColor;
+
 namespace RashkouProject.Game.Entities
+
 {
     public class Bun : ItemEntity
     {
@@ -10,6 +13,9 @@ namespace RashkouProject.Game.Entities
             Name = "Булочка";
             Glyph = ',';
             Consumable = true;
+            ShortDescription.PrintLine("Аппетитного вида булочка.",0,0, White,Black);
+            ShortDescription.PrintLine("Она способна восстановить часть сил.",0,1, White,Black);
+
         }
 
         public override void Use(CharEntity user)

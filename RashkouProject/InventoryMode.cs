@@ -79,7 +79,11 @@ namespace RashkouProject
                         World.State = new TileChoosingMode(World.Player.SightRadius,
                             (int x, int y) =>
                             {
-                                World.Player.Throw(World.Player.Inventory[_select + _page * 35], x, y);
+                                World.Player.Throw(World.Player.Inventory[_select + _page * 35], x, y, 
+                                    25, 
+                                    12, 
+                                    5,
+                                    "Брошенный "+World.Player.Inventory[_select + _page * 35].Name);
                                 World.State = new GameMode();
                             }
                             ,

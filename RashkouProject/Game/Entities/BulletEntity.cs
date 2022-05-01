@@ -1,10 +1,11 @@
 using System;
+using RashkouProject.Game.Fight;
 
 namespace RashkouProject.Game.Entities
 {
     public class BulletEntity : Entity
     {
-        public int Speed, LifeTime;
+        public int Speed, LifeTime, Damage;
         public double Fx, Fy, Vx, Vy;
         
 
@@ -21,9 +22,17 @@ namespace RashkouProject.Game.Entities
                 World.CurrentLocation.Tiles[X, Y].AddEntity(this);
                 LifeTime--;
             }
-            else 
+            else
+            {
+                if (World.CurrentLocation.Tiles[(int) (X+Vx), (int) (Y+Vy)].CharEntities.Count > 0)
+                {
+                    foreach (var attackedEntity in World.CurrentLocation.Tiles[(int) (X+Vx), (int) (Y+Vy)].CharList())
+                    {
+                        attackedEntity.GetHit(new Attack(Damage));
+                    }
+                }
                 Destroy();
-
+            }
         }
         public void Destroy()
         {

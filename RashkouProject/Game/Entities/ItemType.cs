@@ -10,6 +10,8 @@ namespace RashkouProject.Game.Entities
         Shoes,
         Bodywear,
         Food,
-        Key
+        Key,
+        Arrow,
+        RangedWeapon
     }
 }

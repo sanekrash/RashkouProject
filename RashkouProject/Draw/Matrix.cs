@@ -82,8 +82,8 @@ namespace RashkouProject.Draw
                 Console.WriteLine();
                 for (int x = 0; x < width; x++)
                 {
-                    Console.BackgroundColor = Chars[x, y].BackColor;
-                    Console.ForegroundColor = Chars[x, y].ForColor;
+                    //Console.BackgroundColor = Chars[x, y].BackColor;
+                    //Console.ForegroundColor = Chars[x, y].ForColor;
                     Console.Write(Chars[x, y].Glyph);
                 }
             }

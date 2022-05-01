@@ -79,9 +79,9 @@ namespace RashkouProject.Game.Entities
                 Inventory.Remove(entity);
         }
 
-        public void Throw(ItemEntity entity, int x, int y)
+        public void Throw(ItemEntity entity, int x, int y, int speed, int lifetime, int damage, string name)
         {
-            World.CurrentLocation.Spawn(new ThrowedItem(X, Y, x, y, 25, 12, entity));
+            World.CurrentLocation.Spawn(new ShootedItem(X, Y, x, y, speed, lifetime, damage, entity, name));
             Inventory.Remove(entity);
             AddTimeLapse(100);
         }

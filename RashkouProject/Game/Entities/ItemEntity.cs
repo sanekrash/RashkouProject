@@ -1,3 +1,5 @@
+using static System.ConsoleColor;
+
 namespace RashkouProject.Game.Entities
 {
     public abstract class ItemEntity : Entity

@@ -29,9 +29,11 @@ namespace RashkouProject.Game.Entities.CharacterEntity
             for (int i = 0; i < 99; i++)
             {
                 Inventory.Add(new Bun());
-                Inventory[i].Name = i+ "Булочка";
-
-
+                if (i % 2 == 0)
+                    Inventory[i].Name = i+ "Орех";
+                else
+                    Inventory[i].Name = i+ "Glock "+i;
+                
             }
 
         }
@@ -42,7 +44,8 @@ namespace RashkouProject.Game.Entities.CharacterEntity
 
         public override void Act()
         {
-            Move(0,1);
+ //           Move(0,1);
+              Wait();
         }
     }
 }

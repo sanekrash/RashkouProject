@@ -2,17 +2,18 @@ using System;
 
 namespace RashkouProject.Game.Entities
 {
-    public class ThrowedItem : BulletEntity
+    public class ShootedItem : BulletEntity
     {
         public ItemEntity Item;
 
-        public ThrowedItem(int x, int y, int x1, int y1, int speed, int lifeTime, ItemEntity itemEntity)
+        public ShootedItem(int x, int y, int x1, int y1, int speed, int lifeTime, int damage, ItemEntity itemEntity, string name)
         {
             Priority = 125;
-            Name = "Брошенный " + itemEntity.Name;
+            Name = name;
             X = x;
             Y = y;
             LifeTime = lifeTime;
+            Damage = damage;
             Speed = speed;
             Fx = X;
             Fy = Y;

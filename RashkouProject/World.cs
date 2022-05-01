@@ -28,9 +28,20 @@ namespace RashkouProject
         //       int playerX = 20, playerY = 20;
         public World()
         {
-            Player = new Human("Mailine Vestocka", 2, 2);
+            Player = new Human("Майлина Вестимир", 2, 2);
             Player.Glyph = '@';
             Console.Title = "Character: " + Player.Name + " HP: " + Player.HP + "/" + Player.MaxHP;
+            Player.Inventory.Add(new Bow());
+            Player.Inventory.Add(new Arrow());
+            Player.Inventory.Add(new Arrow());
+            Player.Inventory.Add(new Arrow());
+            Player.Inventory.Add(new Bun());
+            Player.Inventory.Add(new Bun());
+            Player.ShortDescription.PrintLine("Я, Майлина Вестимир - главная героиня",0,0, White,Black);
+            Player.ShortDescription.PrintLine("в этом спектакле. Что написать здесь",0,1, White,Black);
+            Player.ShortDescription.PrintLine("еще?",0,2, White,Black);
+
+
             CurrentLocation = new Location(50, 50);
             for (int x = 0; x < 50; x++)
             for (int y = 0; y < 50; y++)
@@ -72,7 +83,7 @@ namespace RashkouProject
 
 
             CurrentLocation.Spawn(Player);
-            CurrentLocation.Spawn(new Somebody("loh", 2, 1));
+            CurrentLocation.Spawn(new Somebody("Мишень", 2, 1));
 
 
 

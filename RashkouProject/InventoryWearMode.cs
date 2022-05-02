@@ -30,7 +30,7 @@ namespace RashkouProject
                         World.Player.UnEquip(World.Player.EquipmentSlots[_select]); 
                         break;
                     case ConsoleKey.U:
-                        if (World.Player.EquipmentSlots[_select] != null) 
+                        if (World.Player.EquipmentSlots[_select].Slot != null) 
                             World.Player.Use(World.Player.EquipmentSlots[_select].Slot);
                         break;
                 }

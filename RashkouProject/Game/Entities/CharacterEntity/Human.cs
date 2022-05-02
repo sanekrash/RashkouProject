@@ -18,7 +18,7 @@ namespace RashkouProject.Game.Entities.CharacterEntity
             Level = 1;
             Exp = 0;
             Passability = false;
-            Damage = 25;
+            Damage = 100;
             Transparency = false;
         }
     }

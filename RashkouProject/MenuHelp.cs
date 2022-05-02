@@ -15,9 +15,9 @@ namespace RashkouProject
         }
         public override void Input(ConsoleKeyInfo key)
         {
-            switch (key.KeyChar)
+            switch (key.Key)
             {
-                case 'b':
+                case ConsoleKey.B:
                     _.State = new Menu();
                     break;
             }
@@ -31,6 +31,7 @@ namespace RashkouProject
             GameMatrix.PrintLine("g - режим подбора", 1, 5, White, Black);
             GameMatrix.PrintLine("w - просмотр надетых вещей", 1, 7, White, Black);
             GameMatrix.PrintLine("u - взаимодействие с объектом", 1, 9, White, Black);
+            GameMatrix.PrintLine("j - журнал событий", 1, 9, White, Black);
             GameMatrix.PrintLine("Хочешь выйти в меню? Нажми b", 1, 38, White, Black);
             GameMatrix.MatrixDrawChar();
         }

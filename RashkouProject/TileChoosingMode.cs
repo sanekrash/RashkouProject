@@ -18,24 +18,27 @@ namespace RashkouProject
         private int _chooseRange;
         private int _select = 0, _page = 0, _maxpage = 0, _maxselect = 0;
         private List<Entity> _selectedTileEntities;
-
+        private readonly Action<Matrix> _bottomText;
         private readonly Action<int, int> _activate;
         private readonly Action<Entity> _objectActivate;
         private Func<int, int, List<Entity>> _entityList;
 
-        public TileChoosingMode(int range, Action<Entity> action, Func<int, int, List<Entity>> entityList)
+
+        public TileChoosingMode(int range, Action<Entity> action, Func<int, int, List<Entity>> entityList, Action<Matrix> bottomText)
         {
             Init(World.Player, range);
             _objectActivate = action;
             _entityList = entityList;
+            _bottomText = bottomText;
             LookTile();
         }
 
-        public TileChoosingMode(int range, Action<int, int> action, Func<int, int, List<Entity>> entityList)
+        public TileChoosingMode(int range, Action<int, int> action, Func<int, int, List<Entity>> entityList, Action<Matrix> bottomText)
         {
             Init(World.Player, range);
             _activate = action;
             _entityList = entityList;
+            _bottomText = bottomText;
             LookTile();
         }
 
@@ -103,7 +106,7 @@ namespace RashkouProject
                 case ConsoleKey.Enter:
                     if (_activate != null)
                         _activate(_x, _y);
-                    if (_objectActivate != null)
+                    if ((_objectActivate != null) && _selectedTileEntities.Count > 0)
                         _objectActivate(_selectedTileEntities[_select + _page * PageElements]);
                     LookTile();
                     break;
@@ -149,11 +152,8 @@ namespace RashkouProject
                     else
                         GameMatrix.PrintLine(" . " + _selectedTileEntities[y + _page * PageElements].Name, 1, y + 27,
                             White, Black);
-
-            GameMatrix.PrintLine("Enter - для выбора области", 2, 37, White, Black);
-            GameMatrix.PrintLine("PageUp/Down для прокрутки страницы", 2, 38, White, Black);
-            GameMatrix.PrintLine("/ или * для выбора страницы", 2, 39, White, Black);
-
+            
+            _bottomText(GameMatrix);
             GameMatrix.MatrixDrawChar();
         }
     }

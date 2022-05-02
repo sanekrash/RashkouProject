@@ -29,11 +29,12 @@ namespace RashkouProject.Game
                 var subject = TimeLapseList.GetMin();
                 Time = TimeLapseList.GetMin().Priority;
                 TimeLapseList.GetMin().Remove();
-                subject.Data.Act();
-                if (subject.Data == World.Player) 
+                subject.Data.CurrentTimeLapse = null;
+                if (subject.Data == World.Player || World.Player.HP <= 0) 
                     return;
+                subject.Data.Act();
             }
-        }
+        }   
 
 
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Xml;
+using RashkouProject.Core;
 using RashkouProject.Game.Fight;
 using RashkouProject.Mathematics;
 
@@ -36,6 +37,8 @@ namespace RashkouProject.Game.Entities
                 X = X + x;
                 Y = Y + y;
                 World.CurrentLocation.Tiles[X, Y].AddEntity(this);
+                AddTimeLapse(100);
+
                 foreach (var mapentity in World.CurrentLocation.Tiles[X, Y].Mapentities)
                 {
                     mapentity.OnStep(this);
@@ -47,9 +50,8 @@ namespace RashkouProject.Game.Entities
                 {
                     attackedEntity.GetHit(new Attack(Damage));
                 }
+                AddTimeLapse(100);
             }
-
-            AddTimeLapse(100);
         }
 
         public void Wait()
@@ -122,13 +124,18 @@ namespace RashkouProject.Game.Entities
         public void Die()
         {
             DropAll();
-            CurrentTimeLapse.Remove();
+            if (CurrentTimeLapse != null)
+                CurrentTimeLapse.Remove();
+            if (this == World.Player)
+                _.State = new DieScreen(World.Player.Name);
             World.CurrentLocation.Despawn(this);
         }
 
         public void GetHit(Attack attack)
         {
             HP = HP - attack.Damage;
+            if (this == World.Player)
+                World.Events.AddEvent("Вы получили "+attack.Damage+" урона");  
             if (HP <= 0)
             {
                 Die();

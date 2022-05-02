@@ -21,7 +21,7 @@ namespace RashkouProject.Game.Entities
         public override void OnStep(CharEntity entity)
         {
             if (Activated)
-            entity.GetHit(new Attack(50));
+            entity.GetHit(new Attack(100));
             Activated = false;
         }
     }

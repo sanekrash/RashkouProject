@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using static System.ConsoleColor;
 
 
 namespace RashkouProject.Game.Entities
@@ -24,7 +25,13 @@ namespace RashkouProject.Game.Entities
                 },(x, y) =>
                 {
                     return new List<Entity>(World.CurrentLocation.Tiles[x, y].ReturnEntities());
-                });
+                }, (matrix) =>
+                    {
+                        matrix.PrintLine("Enter - выстрелить", 2, 37, White, Black);
+                        matrix.PrintLine("PageUp/Down для прокрутки страницы", 2, 38, White, Black);
+                        matrix.PrintLine("/ или * для выбора страницы", 2, 39, White, Black);
+                    }
+                    );
         }
         public override void Use(CharEntity user, int x, int y)
         {

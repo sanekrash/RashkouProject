@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using RashkouProject.Draw;
 using RashkouProject.Game;
 using RashkouProject.Game.Entities;
@@ -31,13 +32,14 @@ namespace RashkouProject
                                   World.TimeController.Execute();
                                   break;*/
                 case ConsoleKey.L:
-                    World.State = new TileChoosingMode(World.Player.SightRadius, (Entity e) =>
-                        {
-                        },
-                        ((x, y) =>
-                        {
+                    World.State = new TileChoosingMode(World.Player.SightRadius, (Entity e) => {},
+                        (x, y) => {
                             return new List<Entity>(World.CurrentLocation.Tiles[x, y].ReturnEntities());
-                        }));
+                        }, (matrix) => {
+                            matrix.PrintLine("", 2, 37, White, Black);
+                            matrix.PrintLine("PageUp/Down для прокрутки страницы", 2, 38, White, Black);
+                            matrix.PrintLine("/ или * для выбора страницы", 2, 39, White, Black);}
+                        );
                     break;
                 case ConsoleKey.C:
                     World.State = new CommandMode();
@@ -48,16 +50,26 @@ namespace RashkouProject
                 case ConsoleKey.W:
                     World.State = new InventoryWearMode();
                     break;
+                case ConsoleKey.J:
+                    World.State = new EventLogMode();
+                    break;
                 case ConsoleKey.G:
                     World.State = new TileChoosingMode(0,
                         (e) =>
                         {
                             World.Player.Pickup((ItemEntity)e);
+                            World.Events.AddEvent("Вы подобрали: "+e.Name);
                         },
-                        (x, y) => { return new List<Entity>(World.CurrentLocation.Tiles[x, y].ItemEntities); });
+                        (x, y) => { return new List<Entity>(World.CurrentLocation.Tiles[x, y].ItemEntities); },
+                        (matrix) =>
+                        {
+                            matrix.PrintLine("Enter - для подбора предмета", 2, 37, White, Black);
+                            matrix.PrintLine("PageUp/Down для прокрутки страницы", 2, 38, White, Black);
+                            matrix.PrintLine("/ или * для выбора страницы", 2, 39, White, Black);
+                        }
+                        );
                     break;
                 case ConsoleKey.U:
-
                     World.State = new TileChoosingMode(1, (Entity e) =>
                         {
                             var mapEntity = (MapEntity)e;
@@ -67,7 +79,13 @@ namespace RashkouProject
                         ((x, y) =>
                         {
                             return new List<Entity>(World.CurrentLocation.Tiles[x, y].Mapentities);
-                        }));
+                        }), (matrix) =>
+                        {
+                            matrix.PrintLine("Enter - для использования этого объекта", 2, 37, White, Black);
+                            matrix.PrintLine("PageUp/Down для прокрутки страницы", 2, 38, White, Black);
+                            matrix.PrintLine("/ или * для выбора страницы", 2, 39, White, Black);
+                        }
+                    );
                     break;
             }
 
@@ -91,6 +109,7 @@ namespace RashkouProject
             {
                 GameMatrix[x, 24] = new Char('-', White, Black);
                 GameMatrix[x, 26] = new Char('-', White, Black);
+                GameMatrix[x, 37] = new Char('-', White, Black);
             }
 
             GameMatrix.PrintLine(World.Player.Name, 40 - World.Player.Name.Length / 2, 25, Green, Black);
@@ -102,8 +121,12 @@ namespace RashkouProject
                 GameMatrix.PrintLine("Оружие: " + World.Player.EquipmentSlots[0].Slot.Name, 2, 32, White, Black);
             else
                 GameMatrix.PrintLine("Оружие: отсутствует", 2, 32, White, Black);
+            if (World.Events.Events.Count > 0)
+                GameMatrix.PrintLine(World.Events.Events[World.Events.Events.Count - 1], 2, 38, White, Black);
             GameMatrix.MatrixDrawChar();
             Console.Title = "Character: " + World.Player.Name + " HP: " + World.Player.HP + "/" + World.Player.MaxHP;
+            
+            
         }
     }
 }

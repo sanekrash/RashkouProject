@@ -14,6 +14,7 @@ namespace RashkouProject
     {
         public static Location CurrentLocation;
         public static CharEntity Player;
+        public static EventList Events;
         public static TimeController TimeController = new TimeController();
 
         public abstract class IState
@@ -29,6 +30,7 @@ namespace RashkouProject
         public World()
         {
             Player = new Human("Майлина Вестимир", 2, 2);
+            Events = new EventList();
             Player.Glyph = '@';
             Console.Title = "Character: " + Player.Name + " HP: " + Player.HP + "/" + Player.MaxHP;
             Player.Inventory.Add(new Bow());
@@ -77,13 +79,17 @@ namespace RashkouProject
             
             CurrentLocation.Tiles[4, 9].AddEntity(new Key(100));
             CurrentLocation.Tiles[4, 9].AddEntity(new Key(228));
+            CurrentLocation.Tiles[2, 7].AddEntity(new BearTrap(3,7));
 
-            
 
 
 
             CurrentLocation.Spawn(Player);
             CurrentLocation.Spawn(new Somebody("Мишень", 2, 1));
+            CurrentLocation.Spawn(new Somebody("Мишень", 1, 1));
+            CurrentLocation.Spawn(new Somebody("Мишень", 3, 1));
+
+
 
 
 

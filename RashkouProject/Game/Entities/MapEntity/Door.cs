@@ -30,12 +30,12 @@ namespace RashkouProject.Game.Entities
                 if (Passability)
                 {
                     Passability = false;
-                    Glyph = '▮';
+                    Glyph = '[';
                 }
                 else
                 {
                     Passability = true;
-                    Glyph = '▯';
+                    Glyph = '|';
                 }
         }
 

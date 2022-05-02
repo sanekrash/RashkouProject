@@ -44,8 +44,7 @@ namespace RashkouProject.Game.Entities.CharacterEntity
 
         public override void Act()
         {
- //           Move(0,1);
-              Wait();
+            Move(0,1);
         }
     }
 }

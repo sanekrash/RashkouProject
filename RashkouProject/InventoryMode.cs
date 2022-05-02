@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using RashkouProject.Draw;
 using RashkouProject.Game;
+
 using static System.ConsoleColor;
 using Char = RashkouProject.Draw.Char;
 
@@ -52,6 +53,7 @@ namespace RashkouProject
                 case ConsoleKey.D:
                     if (World.Player.Inventory.Count > 0)
                     {
+                        World.Events.AddEvent("Вы выбросили: "+World.Player.Inventory[_select + _page * 35].Name);
                         World.Player.Drop(World.Player.Inventory[_select + _page * 35]);
                         Refresh();
                     }
@@ -87,7 +89,13 @@ namespace RashkouProject
                                 World.State = new GameMode();
                             }
                             ,
-                            (x, y) => { return new List<Entity>(World.CurrentLocation.Tiles[x, y].ReturnEntities()); }
+                            (x, y) => { return new List<Entity>(World.CurrentLocation.Tiles[x, y].ReturnEntities()); },
+                            (matrix) =>
+                            {
+                                matrix.PrintLine("Enter - бросить", 2, 37, White, Black);
+                                matrix.PrintLine("PageUp/Down для прокрутки страницы", 2, 38, White, Black);
+                                matrix.PrintLine("/ или * для выбора страницы", 2, 39, White, Black);
+                            }
                         );
                     }
 

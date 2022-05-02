@@ -20,8 +20,15 @@ namespace RashkouProject.Game.Entities
 
         public override void Use(CharEntity user)
         {
-            if (user.HP < user.MaxHP) 
+            if (user == World.Player && user.HP < user.MaxHP)
+                World.Events.AddEvent("Вы съели булочку и восстановили часть сил");  
+            if (user == World.Player && user.HP == user.MaxHP)
+                World.Events.AddEvent("Вы съели булочку");
+            
+            if (user.HP < user.MaxHP)
+            {
                 user.HP++;
+            }
             user.AddTimeLapse(TimeCost);
         }
     }

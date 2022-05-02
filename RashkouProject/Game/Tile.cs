@@ -99,7 +99,6 @@ namespace RashkouProject.Game
         public List<Entity> ReturnEntities()
         {
             var entities = new List<Entity>();
-            int priority = -1;
             foreach (var mapEntity in Mapentities)
             {
                 entities.Add(mapEntity);
